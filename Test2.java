@@ -32,17 +32,42 @@
 //     public void c() {}
 //  }
 
-interface Mylnter {
-  public static final int VAL = 3;
-  void foo(int s);
-}
-public class Test2 implements Mylnter {
-  public static void main(String[] args) {
-    int x = 5;
-    new Test2().foo(++x);
-  }
-  void foo(int s) {
-    s += VAL + ++s;
-    System.out.println("s:" + s);
-  }
-}
+// interface Mylnter {
+//   public static final int VAL = 3;
+//   void foo(int s);
+// }
+// public class Test2 implements Mylnter {
+//   public static void main(String[] args) {
+//     int x = 5;
+//     new Test2().foo(++x);
+//   }
+//   void foo(int s) {
+//     s += VAL + ++s;
+//     System.out.println("s:" + s);
+//   }
+// }
+
+
+// class Animal {
+//   public String noise() { return "peep"; }
+// }
+// class Dog extends Animal {
+//   public String noise() { return "bark"; }
+// }
+// class Cat extends Animal {
+//   public String noise() { return "meow"; }
+// }
+// class Test2 {
+//   public static void main(String[] args) {
+//     Animal animal = new Dog();
+//     Cat cat = (Cat)animal;
+//     System.out.println(cat.noise());
+//   }
+// }
+
+/*  Animalは、Dog、Catのクラス関係は
+Dog クラスとAnimial クラスおよび、Cat クラスと Animal クラスには継承関係
+=　演算子の左辺と右辺は継承関係（DogとCat）
+DogオブジェクトをCat型にキャストしている為、間違ったキャストを行ったことにより実行時エラーになる
+*/
+
