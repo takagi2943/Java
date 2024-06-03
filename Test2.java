@@ -71,3 +71,13 @@ Dog クラスとAnimial クラスおよび、Cat クラスと Animal クラス�
 DogオブジェクトをCat型にキャストしている為、間違ったキャストを行ったことにより実行時エラーになる
 */
 
+/*
+ 8-20
+ com.examplパッケージに属するTestクラスへのアクセスを正しく定義するコードは？
+ */
+// package com.example;
+// public class Test2 {
+//   // some code here
+// }
+
+// クラスをパッケージ化するには「package パッケージ名；」とする
