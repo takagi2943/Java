@@ -81,3 +81,22 @@ DogオブジェクトをCat型にキャストしている為、間違ったキ�
 // }
 
 // クラスをパッケージ化するには「package パッケージ名；」とする
+/*
+ 8-21
+ クラスTestは、com.se.kwd パッケージに属する
+ クラスTestは、com.se.kwd パッケージ以外のクラスから参照される
+ クラスTestは、com.se.sales パッケージのクラス群を利用する
+ クラスTestを正しく定義するコード
+ */
+// package com.se.kwd;
+// import com.se.sales.*;
+// public class Test {
+//   // some code here
+// }
+/*
+1つ目の要件により『package com.se.kwd;』宣言が必要であることがわかる
+2つ目の要件により、Testクラスはpublicクラスである必要があることがわかる
+3つ目の要件により、『import com.se.sales.*;』宣言が必要であることがわかる
+ */
+
+ 
