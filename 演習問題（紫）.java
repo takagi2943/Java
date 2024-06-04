@@ -16,7 +16,7 @@ static修飾子が付与されていない
 
 メソッドの定義としては文法上問題ないため、コンパイルは成功する
 main()メソッドの定義に従っていないことにより実行時エラーになる
-
+【３】
 public class Test {
   [ 1⃣ ]
     System.out.println("Hello");
@@ -26,7 +26,7 @@ public class Test {
 ・public static void main (String[] args){
 ・static public void main (String[] args){
 */
-
+// 【６】
 public class Test {
   public static void main (String[] args) {
     char[] aryA = new char[5];  //　char型のaryA配列を作成し、1文字ずつ要素を格納
@@ -46,6 +46,7 @@ aryB {'o', 'r','a', 'n' 'g', 'e' }    // !
 */
 
 // 配列の宣言として有効なもの
+// 【７】
 ・int[] c = null;
   c = new int[5];
     //int型は基本データ型、int型の配列は参照型であるため、配列名の宣言時にnullで初期化する事は正しい
@@ -59,6 +60,7 @@ aryB {'o', 'r','a', 'n' 'g', 'e' }    // !
 ・領域の確保の際に[]を使用しているが、その前に()を使用している為誤り
 */
 
+// 【９】
 class Test {
   public static void main(String[] args){
     int x = 3 * 7;
@@ -77,6 +79,7 @@ if文の条件式はboolean型になる式でなければならない
 もし、x==yであったら、trueが返り、x==yと表示された
 */
 
+// 【１０】
 class Test {
   public static void main(String[] args){
     int x = 0, y = 5;
@@ -91,7 +94,7 @@ class Test {
 
 // elseのみの記述に変更すればコンパイル、実行ともに成功し、実行結果は2
 
-
+// 【１２】
 class Test {
   public static void main(String[] args) {
     Test[] ary = {new Test(), new Test() };
@@ -102,6 +105,7 @@ class Test {
   }
 }
 
+// 【１９】
 /*
 while（条件式）{}do; という記述はできない
 doの記述でコンパイルエラーになる
@@ -109,3 +113,38 @@ doの記述でコンパイルエラーになる
 その場合21と出力される
 */
 
+// 【２０】
+class Test {
+  public static void main(String[] args) {
+    for(int a = 0; a < 2; a++) {
+      for(a = 5; a < 10; a++) {   // a<2がtrueの間行われる処理
+        System.out.print(a);   // a<10がtrueの間行われる処理
+      }
+    }
+  }
+}
+/*
+a変数を０で初期化し、a<2により２に到達するまで繰り返し処理を行う
+宣言したa変数に５を代入し、a<10により１０に到達するまで繰り返し処理を行う
+a変数が１０になった時点で処理は終了する
+そして、注目する点は、まだa<2はfalseを返していない
+a++により、a変数は１１となり、a<2でfalseが帰り処理が終了する
+同じ変数を使用していることで初期化で１０が入っているからfor文を抜けている
+なので、一回しか出力されない
+ */
+
+// 【２１】
+class Test {
+  public stetic void main(String[] args){
+    for(int x = 0; x++){  // for文にwhile文を入れ子にしている　式２に繰り返し条件式が指定されていない
+      int y = 1;
+      while(y <= 5){
+        System.out.print(y++);
+      }
+    }
+  }
+}
+
+/*
+コード内でbreak文の使用がないため、
+ */
