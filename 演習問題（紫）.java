@@ -243,11 +243,53 @@ class Test {
 }
 /*
 method()メソッドはstaticでなけらばならない
-
  */
 
 // 【２８】
+class Test {
+  String fruit;
+  public void show(){
+    System.out.println(fruit);
+  }
+  public static void main(String[] args){
+    Test obj1;  // Test型の変宣言をしているが初期化していない
+    Test obj2;  // Test型の変数宣言をしているが初期化していない
+    obj1.fruit = "Grape";
+    obj2.fruit = "Lemon";
+    obj1.show();
+    obj2.show();
+  }
+}
+/*
+初期化していない変数を使用しているため、ここではコンパイルエラーになる
+メンバ変数はデフォルト値で初期化されるが、ローカル変数は暗黙で初期化されることはない
+Test obj1;という宣言だけでは、obj1はまた値を持っていない
+そのためobj1はローカル変数のままであり、どのTestクラスのインスタンスも参照しない
+ */
+
+
 // 【３０】
+class Test {
+  static String fruit = "Grape";  // 静的変数　fruitを定義
+  Test(String fruit) {  
+    // コンストラクタを定義している これによりデフォルトコンストラクタは作成されない
+    
+    this.fruit = fruit;
+  }
+  public static void main(String[] args) {
+    Test obj1 = new Test();
+    Test obj2 = new Test("Lemon");
+    System.out.println(obj1.fruit  + ":" + obj2.fruit);
+  }
+}
+/*
+TestクラスのTest(String fruit)でコンストラクタを定義している
+これによりデフォルトコンストラクタは作成されない
+System.out.println(obj1.furit + ":" + obj2.fruit);のコンストラクタの呼び出しは、
+Test(String fruit)が合致するが、コンストラクタ呼び出しに合致するコンストラクタはない
+
+ */
+
 // 【３３】
 // 【３５】
 // 【４０】
