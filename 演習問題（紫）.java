@@ -270,14 +270,14 @@ Test obj1;という宣言だけでは、obj1はまた値を持っていない
 
 // 【３０】
 class Test {
-  static String fruit = "Grape";  // 静的変数　fruitを定義
+  static String fruit = "Grape";  //static 静的変数　fruitを定義
   Test(String fruit) {  
     // コンストラクタを定義している これによりデフォルトコンストラクタは作成されない
-    
-    this.fruit = fruit;
-  }
+    // 引数を取らないTest()が定義されていない
+    this.fruit = fruit;   // キーワードを使用してアクセスされる変数、特定のインスタンスに属する変数 
+  }                       // 静的で変数定義されているfruitをthisを使用することは適切ではない
   public static void main(String[] args) {
-    Test obj1 = new Test();
+    Test obj1 = new Test();   // 引数を取らないコンストラクタを呼び出そうとしている
     Test obj2 = new Test("Lemon");
     System.out.println(obj1.fruit  + ":" + obj2.fruit);
   }
@@ -287,10 +287,29 @@ TestクラスのTest(String fruit)でコンストラクタを定義している
 これによりデフォルトコンストラクタは作成されない
 System.out.println(obj1.furit + ":" + obj2.fruit);のコンストラクタの呼び出しは、
 Test(String fruit)が合致するが、コンストラクタ呼び出しに合致するコンストラクタはない
-
+Javaではクラスのコンストラクタはクラスのインスタンスが生成されるときに呼び出される特別なメソッド
+コンストラクタの特徴
+クラスメイト同じ名前を持つ：コンスト
+戻り値がない：void
+TestはString fruit
  */
 
 // 【３３】
+class Test {
+  int method(int num1){
+    return num1 * num1;
+  }
+  double method(ing num2){
+    return num2 * 0.9;
+  }
+  public static void main(String[] args){
+    int data = 10;
+    Test obj =new Test();
+      System.out.println(obj.method(data));
+  }
+}
+
+
 // 【３５】
 // 【４０】
 // 【４１】
