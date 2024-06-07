@@ -297,20 +297,53 @@ TestはString fruit
 // 【３３】
 class Test {
   int method(int num1){
-    return num1 * num1;
+    return num1 * num1; // このメソッドの戻り値は int型
   }
-  double method(ing num2){
-    return num2 * 0.9;
+  double method(int num2){  //double method(double num2) に変更すればオーバーロード成功
+    return num2 * 0.9;  // このメソッドの戻り値は double型
   }
   public static void main(String[] args){
     int data = 10;
     Test obj =new Test();
-      System.out.println(obj.method(data));
+      System.out.println(obj.method(data));   // これはint method(int num1)を呼び出す
+      // System.out.println(pbj.method((double) data));  // double method(double num)が呼び出される
   }
 }
 
+/*
+Testクラス内でmethod()を下記のように定義している
+int method(int num1)
+double method(int num2)   // int => doubleに変更されるとオーバーーロードは成功する
+
+オーバーロードをする際は、引数の型、数、並びが異なっている必要がある
+この問題文の例では、引数が全く同じであるためコンパイルエラーになる
+なお、オーバーロードでは戻り値は無視されるため、同じであっても異なっていてもかまわない
+*/
 
 // 【３５】
+/*
+メソッドのオーバーロードを行っているクラスとして正しいもの
+class Test {  // 名前の異なるメソッドを定義しているためオーバーロードとみなされない
+  public void write(int a, int b){}
+  public void show(){}
+  }
+
+ class Test {  // write()メソッドは戻り値を記載していないためメソッド定義として誤り
+  public void write(int a, int b){}
+  public write(int a){}
+ }
+
+ class Test {   // メソッド名、引数が同じメソッドを定義しているため誤り。オーバーロードでは戻り値は無視される
+  ppublic void write(int a, int b){}
+  public void write(int a, int b){}
+ }
+
+ class Test {   // メソッド名が同じであり、引数の数が異なっているためオーバーロードとして正しい
+ public void write(int a, int b){}
+ public void write(int a){}
+ }
+ */
+
 // 【４０】
 // 【４１】
 // 【４２】
