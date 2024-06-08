@@ -495,11 +495,175 @@ abstract class MyClassA {   // 抽象メソッド methodA()が定義されてい
 （サブクラスや実装クラスのオブジェクト）を扱うことが可能である
 これにより、親の型を使用したメソッドを呼び出しであっても、オブジェクトごとに異なる機能を提供
 することを実現している
+
+【メソッドのオーバーライド】
+サブクラスはスーパークラスのメソッドをオーバーライドできる
+スーパークラスの型で宣言された変数がサブクラスのインスタンスを参照する場合
+実際に呼び出されるメソッドはそのサブクラスのものになる
+
+【ランタイムの振る舞いの決定】
+コンパイル時ではなく実行時にメソッドの振る舞いが決定されるため、プログラムの柔軟性が向上する
+プログラムの振る舞いが実行時に決定され、異なるオブジェクトに同じメソッドを呼び出すことができる
+
+【ポリモフィックなコレクションの利用】
+スーパークラスの型で宣言されたコレクションに、そのサブクラスのオブジェクトを格納できる
+これにより、異なる型のオブジェクトを同じコレクションで管理できる
  */
 
-
 // 【５１】
+interface Foo{
+  [  1  ]
+}
+// プログラムが正常にコンパイルするために、１に挿入するコードとして正しいもの
+/*
+・void methodA(String name);  // 〇
+    abstract修飾子はないが、インターフェースでは実装（{}）がない場合は、
+    コンパイル時に public abstract が付与されるため正しい
+
+・public static void methodB(String name);  // X
+    abstract な static メソッドは宣言できないため、実装（{}）がなく、static修飾子を
+    付与するとコンパイルエラーになる
+    インタフェース自体で実装を持つ静的メソッドとして扱われる
+    インターフェース内のメソッドはインスタンスメソッドではなく、クラスメソッドとして扱われるため抽象メソッドではない
+    インターフェースの本来の用途である
+    「契約（インターフェースを実装するクラスがそのメソッドを実装すること）」とは異なるものになってしまう
+
+・String name;    // X
+    インターフェースでの変数は、public static final となるため定数となる
+    そのため宣言時に初期化しておく必要がある
+    フィールドの宣言
+    初期値の代入がない為、コンパイルエラーになる
+    
+・private void methodC(int val);   // X
+    private な抽象メソッドは宣言できないため、コンパイルエラーになる
+
+・public String methodD();  // 〇
+    abstract修飾子はないが、インターフェースでは実装（{}）がない場合は、
+    コンパイル時に public abstract が付与されるため正しい
+
+
+インターフェースにおけるメソッド宣言のルール
+1. メソッドは暗黙的に public および abstract として宣言される
+   ・インターフェース内のメソッドは、自動的に public および abetract として扱われる
+   ・明示的に public と書かなくても、インターフェース内のメソッドは常に public になる
+2. メソッド本体は含めない
+   ・インターフェースのメソッドは、メソッド本体を持たない
+   　これは、実装クラスにおいてそのメソッドがどのように実装されるかを定義するため
+
+これらのルールに従うと、どちらも有効なインターフェースメソッドの宣言
+void methodA(String name);
+public String methodD();
+
+ */
+
 // 【５２】
+// インタフェースの定義として正しいものを2つ選択
+
+public interface Foo {    // 〇
+  public String data = "sample";
+  abstract void method(String info);
+}
+
+public interface Foo {    // 〇
+  public String data = "sample";
+  void method(String info);
+}
+
+public interface FOO {    // X
+  abstract String data = "sample";    // 変数にabstract修飾子は付与できない
+  abstract void method(String info);  // 変数にabstract修飾子は付与できない
+}
+
+public interface FOO {    // X
+  private String data = "sample"; // private修飾子は付与できない
+  public void method(String info);
+}
+
 // 【５６】
+// コンパイルエラー
+class MyClassA {
+  static String data;
+  public void show() {    // show() メソッドは 非staticメソッド
+    System.out.println("MyClassA :" + data);
+  }
+}
+public class MyClassB extends MyClassA {
+  public static void show() { // show() メソッドがstaticとして定義している（ルール違反）
+    System.out.println("MyClassB :" + data);
+  }
+  public static void main(String[] args) {
+    MyClassA obj1, obj2;
+    obj1 = new MyClassA();
+    obj2 = new MyClassB();
+    obj1.data = "Hello";
+    obj2.data = "Bye";
+    obj1.show();
+    obj2.show();
+  }
+}
+
+/*
+MyClassBのshowメソッドがstaticとして定義されているため
+MyClassBのshowメソッドはstaticメソッドであり、
+非staticメソッドであるMyClassAのshowメソッドを
+オーバーライドしようとしている。これはルール違反をしているから
+
+Javaでは2つの条件を同時に満たすことはできない
+1. スーパークラス（親クラス）のメソッドが非 static メソッドである場合、サブクラス（子クラス）
+   のメソッドが同じシグネチャで static メソッドにすること
+2. サブクラスのメソッドが static メソッドである場合、スーパークラスの同じシグネチャのメソッドが
+   stataic メソッドであること
+
+ */
+
 // 【５８】
+class MyClassA {
+  public class MyClassB extends MyClassA {
+    public static void main(String[] args) {
+      MyClassA obj1 = new MyClassA();
+      MyClassB obj2 = new MyClassB();
+      MyClassB obj3 = new MyClassB()obj1; 
+      // MyClassA と MyClassB は継承関係あるためコンパイルは成功
+      //  obj1が参照されているのは MyClassA のためキャストに失敗し実行時エラー
+
+      Object obj4 = (Object)obj1;
+      // MyClassA はスーパークラスにjava.lang.Objectクラスを持つため
+      // コンパイル、実行ともに成功する。なお、キャストを使用しないコードでも問題ない
+      // Object obj = obj1;
+
+      String obj5 = (String)obj1;
+      // MyClassA と String は継承関係がないため、コンパイルエラーになる
+      // キャストも含め型変換が可能なのは、継承・実装の関係がある場合
+
+      MyClassA obj6 = (MyClassA)obj2
+      // MyClassA とMyClassB は継承関係があるため、コンパイル、実行ともに成功する
+      // キャストを使用しないコードでも問題ない
+      // MyClassA obj6 = obj2;
+    }
+  }
+}
+
+
 // 【５９】
+interface Fruit {
+  int get();
+}
+class Lemon implements Fruit {
+  public int get() { return 7; }
+}
+class Orange {
+  public int get() { return 64; }
+}
+class Test {
+  public static void main(String[] args) {
+    Fruit[] ary = { new Lemon(), new Orange() }; 
+    // Lemon クラスはFruit インターフェースの実装クラスだが、Orenge クラスは
+    // Fruit インタフェースを実装していない
+    // 各クラスのオブジェクトを Fruit 型の配列に格納しようとしているが、
+    // Orenge オブジェクトは Fruit 型を持たないため格納不可　コンパイルエラーになる
+
+    for(int i = 0 i < ary.length; i++) {
+      System.out.print(ary[i].get() + "");
+    }
+  }
+}
