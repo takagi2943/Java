@@ -73,7 +73,7 @@ class Test {
 }
 
 /*
-ｘ、ｙ変数はint型であるためｍx = yの結果はｘにｙの値が代入され結果はint型の21となる
+ｘ、ｙ変数はint型であるためx = yの結果はｘにｙの値が代入され結果はint型の21となる
 if文の条件式はboolean型になる式でなければならない
 そのため、コンパイルエラーになる
 もし、x==yであったら、trueが返り、x==yと表示された
@@ -345,6 +345,29 @@ class Test {  // 名前の異なるメソッドを定義しているためオー
  */
 
 // 【４０】
+// MyClass.javaに記載されたクラス宣言として正しいもの 選択
+
+public class MyClass extends java.lang.*{}  
+// extendsの後は、単体クラス名もしくは、完全修飾子(パッケージ名 + クラス名)を指定しなければならないため誤り
+
+final class MyClass{}   // 〇
+// finalクラスは継承を許可しないクラスとなり、クラスの宣言としては正しい
+// クラス宣言自体は正しい構文
+
+public class MyClass{}  // 〇
+// publicクラスはソースファイル名と同じにするという制限がある。問題文では、ソースファイル名がMyClass.javaとあるため正しい
+// public修飾子はクラスがパッケージ外からもアクセス可能であることを意味する
+// クラス宣言自体は正しい構文
+
+private class MyClass extends Object{}
+// クラス宣言にprivate修飾子は付与できないため誤り
+
+class MyClass extends java.lang.Object{}  // 〇
+// Java宣言が提供するjava.langパッケージのObjectクラスを継承したクラスは定義可能のため正しい
+// extends java.lang.Objectは明示的に、Objectクラスを継承することを示しているが、これはデフォルトで行われる
+// クラスう宣言自体は正しい構文
+
+
 // 【４１】
 // 【４２】
 // 【４５】
