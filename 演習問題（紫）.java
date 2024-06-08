@@ -369,11 +369,135 @@ class MyClass extends java.lang.Object{}  // 〇
 
 
 // 【４１】
+// Animalクラスのオブジェクトが生成されるコードとして正しいもの
+Animal obj;
+new Animal();   // 〇
+Animal obj = new Animal();   // 〇
+Animal obj = nul;
+Animal obj = DOg; // new キーワードを使用していないから文法として誤り
+
+/*
+インスタンス化はnewによるコンストラクタの呼び出しによって行われる
+不正解はAnimal型の変数宣言をしているだけ、インスタンス化はしていない
+ */
+
+
 // 【４２】
+class A {
+  void processA(){}
+  void processB(String data){}
+  int processC(int val1, doble val2){retun 0;}
+  int processD(int num){retun 0;}
+}
+class B extends A {
+  public void processA(){}  // 〇
+  public void processB(String[] data){}
+  int processC(int val1, float val2){retun 0;}
+  int processD(int num){retun 0;}   // 〇
+}
+
+/*
+オーバーライドのルールは以下の通り
+・メソッド名、引数リストが全く同じメソッドをサブクラスで定義する
+・戻り値は、スーパークラスで定義したメソッドが返す方と同じか、その型のサブクラス型とする
+・アクセス修飾子は、スーパークラスと同じものか、それよりも公開範囲が広いものであれば使用可能
+
+ルールに従っているのは
+・public void processA(){}
+・int processD(int num){retun 0;}
+
+ */
+
+
 // 【４５】
+public class Bar {
+  private String str1, str2;
+  private String str3 = "orange";  // フィールド初期化子
+  Bar(){
+    [   1   ]
+    // this("grape");   // Bar（Strint s）コンストラクタを呼び出す
+    // str1 = "peach";  // str1 を "peach" に初期化
+  }
+  Bar(Strint s){
+    str2 = s;     // str2 は s を初期化。ここでは s は "grape"
+  }
+  public void desp(){
+    System.out.println(str1 + ":" + str2);  // str3も記述すると
+  }
+  public void main(String[] args){
+    Bar obj = new Bar();
+    obj.disp();    // "peach:prape:orage" が表示される
+  }
+}
+// str1、str2の各変数を初期化するために１に入るコードとして正しいものは？
+// this("grape");
+//   str1 = "peach";
+/*
+自クラス内のコンストラクタを呼び出す場合は、this()を使用する
+クラス名を使用することはできない
+また、this()の呼び出しはコンストラクタ定義の先頭に記述する必要がある
+ */
+
 // 【４６】
+class Test {
+  int num1, num2;
+  public Test(int num2){
+    this.num2 = num2;
+  }
+  public Test(int num1, int num2){
+    this.num1 = num1++;
+    this(++num2);  // コンストラクタ定義の先頭に記述する必要がある
+  }
+  public static void main(String[] args){
+    int num1 = 3;
+    int num2 = 5;
+    Test obj = new Test(num1, num2);
+    System.out.println(obj.num1 + ":" + obj.num2);
+  }
+}
+
+/*
+コンパイルエラーになる
+this(++num2); 
+this.num1 = num1++;
+上記のように逆にするとコンパイル、実行ともに成功し、実行結果は3:6になる
+ */
+
 // 【４９】
+abstract class MyClassA {   // 抽象メソッド methodA()が定義されている
+  public abstract void mhethodA();
+  void methodB() {
+    System.out.println("MyClassA#methodB");
+  }
+  // MyClassB クラスもこれを実装する必要がある
+  public class MyClassB extends MyClassA { // MyClassAを継承している
+    [  1  ]
+    // public void methodA(){  // metehodA()がpublicでなければならないことに注意する
+    // System.out.println("MyClass#methodA");
+    //  }
+  }
+}
+
+/*
+なぜならMyClassBクラスでmehodA()をオーバーライドする際に、アクサス修飾子は広げることができないため
+抽象メソッドで作られているため具象メソッドで実装する必要がある
+抽象メソッドは本体を持たないため、サブクラスで実装する必要がある
+そのため、MyClassBクラスでmethodA()を実装することでMyClassAクラスの抽象メソッドを具現化する
+ */
+
 // 【５０】
+// ポリモフィズムと最も関連が深いもの
+/*
+スーパークラスの型で宣言した変数に、サブクラスのオブジェクトを代入すること
+
+ポリモフィズム（多能性、多相性）は、呼び出す名前が同じであっても、実際にはオブジェクトごとに
+振る舞いや動作が異なること。Javaではスーパークラスのインターフェースの型で、実際のオブジェクト
+（サブクラスや実装クラスのオブジェクト）を扱うことが可能である
+これにより、親の型を使用したメソッドを呼び出しであっても、オブジェクトごとに異なる機能を提供
+することを実現している
+ */
+
+
 // 【５１】
 // 【５２】
 // 【５６】
