@@ -60,7 +60,7 @@ aryB {'o', 'r','a', 'n' 'g', 'e' }    // !
 ・領域の確保の際に[]を使用しているが、その前に()を使用している為誤り
 */
 
-// 【９】
+// 【10】
 class Test {
   public static void main(String[] args){
     int x = 3 * 7;
