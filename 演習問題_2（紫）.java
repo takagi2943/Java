@@ -96,27 +96,127 @@ Test 型を宣言しているが初期化をしていない
 
 // 【３０】
 class Test {
-  static String fruit = "Grape";
-  Test(String fruit) {
+  static String fruit = "Grape";  // static で定義しているため静的になる‼
+  Test(String fruit) {    // コンストラクタを定義！
     this.fruit = fruit;
   }
 public static void main(String[] args) {
-  Test obj1 = new Test();
-  test obj2 = new Test("Lemon");
+  Test obj1 = new Test();   // デフォルトコンストラクタを召喚しようとしているがそもそもない
+  test obj2 = new Test("Lemon");    // コンストラクタの呼び出しに成功
   System.out.println(obj1.fruit + ":" + obj2.fruit);
 }
 }
 
 /*
+デフォルトコンストラクタを呼び出そうとしているためコンパイルエラーになる！
 Test クラスの3行目でコンストラクタを定義している
-これによりデフォルト
+これによりデフォルトコンストラクタは作成されない
+Test(){}
+と記述するとコンパイル・実行ともに成功する
+static で変数を指定しているため静的になるためこれにより固定されるのでLemonで上書きされる
+実行結果は Lemon : Lemon
  */
 
 // 【４０】
+// MyClass.java に記載されたクラス宣言として正しいものはどれですか？3つ答えよ
+・public class MyClass extends java.lang.*{}  // x
+  // extends の後は、単体のクラス名もしくは。完全修飾名(パッケージ名 + クラス名)を
+  // 指定しなければならない為誤り
+
+・final class NyClass {}    // 〇
+  // final クラスは継承を許可しないクラスとなり、クラスの宣言としては正しい
+
+・public class MyClass {}   // 〇
+  // public クラスはソースファイル名と同じにするという制限がある
+  // 問題文では、ソースファイル名が MyClass.java とあるため正しい
+
+・private class MyClass extends Object{}  // x
+  // クラス宣言に private 修飾子は付与できない為、誤り
+
+・class MyClass extends java.lang.Object{}  // 〇
+  // Java 言語が提供する　java.lang パッケージの Object クラスを継承したクラスは定義可能のため正しい
+
+
 // 【４１】
+class Animal {}
+class Dog extends Animal {}
+
+// Animal クラスのオブジェクトが生成されるコードとして正しいコードは？2つ選択
+・ Animal obj;
+・ new Animal();  // 〇
+・ Animal obj = new Animal();   // 〇
+・ Animal obj = null;
+・ Animal obj = Dog;  // new キーワードを使用していないため文法として誤り
+
+/*
+インスタンス化は new によるコンストラクタの呼び出しによって行われる
+不正解は Animal 型の変数宣言をしているだけ、インスタンス化はしていない
+ */
+
 // 【４５】
+public class Bar {
+  private String str1,str2;
+  private String str3 = "orenge"; // フィールドの初期化子
+  Bar() {
+    [  1  ]
+    this("grape");  // Bar（String s)コンストラクタを呼び出す
+      str1 = "peach";  // str1 を "peach" に初期化
+  }
+  Bar(String s) {
+    str2 = s;   // str2 は s を初期化。ここでは s は "grape"
+  }
+  public void disp() {
+    System.out.println(str1 + ":" + str2);
+  }
+  public static void main(String[] args) {
+    Bar obj = new Bar();
+    obj.disp();
+  }
+}
+
+/*
+str1, str2の各変数を初期化するために1に入るコードとして正しいものは
+this("grape");
+  str1 = "peach";
+自クラス内のコンストラクタを呼び出す場合は、this()を使用する
+クラス名を使用することはできない
+また、this()の呼び出しはコンストラクタ定義の先頭に記述する必要がある
+ */
+
+
 // 【５１】
+interface Foo {
+  [  1  ]
+}
+
+// プログラムが正常にコンパイルするために、１に挿入するコードとして正しいものは？
+・ void methodA(String name);
+  // abstract 修飾子の付与はないが、インターフェースでは実装({})がない場合は、
+  // コンパイル時に public abstract が付与される為正しい
+・ public String methodD();
+
 // 【５２】
+// インターフェースの定義として正しいものはどれ？
+public interface FOO {
+  public String data = "sample";
+  abstract void method(String info);
+}
+
+public interface Foo {
+  public String data = "sample";
+  void method(String info);
+}
+
+// 変数に abstract 修飾子は付与できない
+// インタフェースでは、変数に private 修飾子は付与できない
+
 // 【５６】
+class MyClassA {
+  static String data;
+  public void show() {
+    System.out.println("MyClassA :" + data);
+  }
+}
+
 // 【５８】
 // 【５９】
