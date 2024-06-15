@@ -1,0 +1,94 @@
+// 【９】
+class Test { 
+  public static void main(String[] args) {
+    int x = 10;
+    int y = (x = 3) + x;
+      System.out.println(x + "" + y);
+  }
+}
+/*
+(x = 3)が処理され、ｘは3となる
+そして、3＋ｘの処理により、ｙには6が代入される
+したがって、実行結果は3 6になる
+ */
+
+// 【５１】
+interface Foo {
+  [   1   ]
+}
+
+// プログラムが正常にコンパイルするために、１に挿入するコードとして正しいもの
+/*
+・void methodA(String name);  // 〇
+abstract修飾子の付与はないが、インタフェースでは実装({})がない場合は、コンパイル時に pubilc abstract が付与されるため正しい
+・public static void methodB(String name);
+abstractなstaticメソッドは宣言できない為、実装({})がなく、stataic 修飾子を付与するとコンパイルエラーになる
+・String name;
+インタフェースでの変数は、public static finalなるため定数となる
+そのため、宣言時に初期化しておく必要がある
+初期値の代入がない為コンパイルエラーになる
+・private void methodC(int val);
+private な抽象メソッドは宣言できないため、コンパイルエラーになる
+・public String maethodD(); // 〇
+
+ */
+// 【５２】
+// インタフェースの定義として正しいもの
+/*
+public interface Foo {
+  public String data = "sample";
+  abstract void method(String info);
+}
+
+public interface Foo {
+  public String data = "sample";
+  void method(String info);
+}
+
+変数にabstract 修飾子は付与できない
+インタフェースでは、変数に private 修飾子は付与できない
+ */
+
+// 【５８】
+/*
+class MyClassA {}
+public class MyClassB extends MyClassA {
+  public static voids main(String[] args) {
+    MyClassA obj1 = new MyClassA();
+    MyClassB obj2 = new MyClassB();
+    MyClassB obj3 = (MyClassB)obj1;  // コンパイルは成功するがキャストに失敗する
+    Object obj4 = (Object)obj1;      // コンパイル・実行ともに成功
+    String obj5 = (String)obj1;      // 継承関係がない為、コンパイルエラーとなる
+    MyClassA obj6 = (MyClassA)obj2;  // コンパイル・実行ともに成功
+  }
+}
+
+コンパイルエラーが発生する行は
+String obj5 = (String)obj1;
+MyClassA と String は継承関係がない為
+キャストを含め型変換が可能なのは、継承・実装の関係がある場合
+ */
+
+// 【５９】
+/*
+interface Fruit {
+int get();
+}
+class Lemon imperments Fruit {
+  public int get() { return 7; }
+}
+class Test {
+  public static void main(String[] args) {
+    Fruit[] ary = { new Lemon(), new Orange(); }
+    for(int i = 0; i < ary.length; i++) {
+      System.out.print(ary[i].get() + "");
+    }
+  }
+}
+
+コンパイル、実行をした結果として正しいものは？
+Lemon クラスは Fruit インタフェースの実装クラスだが、Orange クラスは
+Fruit インタフェースを実装していない。Lemon クラス、Orenge クラスの定義内容は文法上誤りはない
+コンパイルは成功するが、Test クラスで各クラスのオブジェクトをFruit 型の配列に格納しようとしている
+Orange オブジェクトはFruit 型を持たない為、格納できない
+ */
