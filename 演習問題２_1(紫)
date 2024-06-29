@@ -1,0 +1,1165 @@
+// 【１】
+/*Java仮想マシン（JVM）が行っていることとして正しい説明3つ選択
+java コマンドよりクラス(.class)ファイルを実行すると、JVM は指定されたクラスファイル
+の読み込み(ロード)を行う。そして、クラスファイル内に書かれたバイトコードを解釈し実行
+する
+
+バイトコードの解釈
+.class ファイルの実行
+.class ファイルのロード
+*/
+
+// 【２】
+/*
+Java のソースファイルに関する説明として正しいもの3つ選択
+・ ソースファイル名は、public 指定されたクラス名と一致する必要がある
+      public クラスはソースファイル名と同じにするという制限がある
+
+・ 1つのソースファイル内に、インターフェースとクラスの両方を含めることができる
+      1つのソースファイル内に、複数のインタフェース、複数のクラスを定義可能
+
+・ package 文は任意であるが、記述する際はソースファイルの先頭に記述する必要がある
+      package 文を使用したパッケージ化は推奨されているが、必須ではない
+      また、パッケージ宣言は、ソースファイルの先頭に記述するため正しい
+
+・1つのソースファイル内には、必要に応じて複数行の import 文を記述可能
+・import 文は、ソースファイルの先頭で記述する
+・final クラスも含めて1つのソースファイル内に複数定義可能である
+
+*/
+// 【３】
+/*
+有効なコード3つ選択
+・ int j = 'A';
+      暗黙の型変換が行われているため、代入可能
+
+・ byte b = 10;   // bute型の変数bに値10を代入
+    int i = b;    // byte型の変数bをint型の変数iに代入(ワイドニング変換)
+      暗黙の型変換が行われるため代入可能
+      int(-2,147,483,638 ~ 2,147,483,647)に完全に含まれる。この変換はデータの損失なしに安全に行われる
+
+・ double d = 5.0;
+      int n = (int)d;
+       キャストによる型変換が行われるため代入可能
+       double 型の変換 b を int 型に変換するためにキャスト演算子(int)を使用している
+       このような変換はナローイング変換(狭める変換)と呼ばれる
+       この場合、 b の値である5.9は int 型に変換されると５になる
+       キャストによって小数部分が切り捨てられる(四捨五入ではなく切り捨て)
+       このキャストが必要な理由は、データの損失が発生する可能性があるため
+       キャストを使用することで、プログラマがそのことを理解して意図的に変換を行っていることを示す
+*/
+
+// 【４】
+/*
+有効なコード3つ選択
+・ double num1 = 3.14;
+      変数で宣言したデータ型と代入値の型が一致しているため代入可能
+
+・ int num4 = 'x';
+      暗黙の型変換が行われるため、代入可能
+
+・ String num6 = "false";
+      変数で宣言したデータ型と代入値の方が一致しているため代入可能
+
+無効なコード
+・ char num2 = "a";
+      代入値が "" で囲まれている
+      １文字であっても "" で囲まれると文字列(Storing 型)と判断され char 型で扱うことは不可
+
+・ boolean num3 = "true";
+      文字列(String 型)を boolean 型で扱うことはできない
+
+・ float num5 = 0.1;
+      float 型の変数に falat 値を代入する場合には、数に「F」もしくは「ｆ」を付与する必要がある
+*/
+
+// 【８】
+public class Test {
+  public static void main(String[] args) {
+    String data = "null";   // data 変数には null 文字列が格納(４文字の文字列に注意)
+      if(data == null) {    // 何も参照しない null リテラルと等しい場合( data には文字列のnullが入っている)
+        System.out.println("null");
+    }else if(data.length() == 0) {  // 条件に一致しない data（４文字入っている）
+      System.out.println("0");
+    }else {
+      System.out.println("else");
+    }
+  }
+}
+/*
+コンパイル、実行した結果として正しいもの
+else と表示される
+
+最初のif(data == null)の条件はfalse
+次のelse if(data.length() == 0)の条件もfalse
+*/
+
+// 【１０】
+public class Test {
+  public static void main(String[] args) {
+    String words = "ABCDEFGHIJ";
+    String msg = null;
+    switch(words.charAt(7)) {
+      casr 'H':
+      msg = "Hello";
+      break;
+      case 'G':
+      msg = "GoodBye";
+      default:
+      msg = "other";
+    }
+    System.out.println(msg);
+  }
+}
+
+/*
+A ~ J の文字列が用意されている
+charAt(7)を実行している
+これはインデックス７番目の文字をchar 型で返す。インデックスは０から数えるため H 文字が返る
+ */
+
+// 【１１】
+class Test {
+  public static void main(String[] args) {
+    int x = 10, y = 5;
+    if(x = 10) {}   // 代入演算子('=')の使用
+    if(x != 0 | y != 0) {}
+    if(y == 10) {}
+    if(x == 10 and y == 5) {}   // Javaでは、論理AND演算子は、'and'ではなく、'&&'
+    if(x >= y) {}
+  }
+}
+
+/*
+if の条件式は、判定結果が boolean 値になる式でなければならない
+４行目は文法エラーになる。また、Java 言語では、７行目のような and 論理演算しは提供されていない
+したがって、文法エラーとなる
+if(x != 0 | y != 0) {}
+    コンパイルエラーにはならないが、論理OR演算子('||')を使用する方が適切
+    ビット単位OR演算子('|')も条件式として使用可能ではあるが、
+    論理演算を行う場合には通常、論理OR演算子を使用する
+
+答え
+複数行に問題があるためコンパイルエラーとなる
+ */
+
+// 【１４】
+class Test {
+  public static void main(String[] args) {
+    int num = 0;  // 値の初期化
+    boolean flag = false;   // 値の初期化
+    while((num++ < 3) && !flag) {   // numを後置きインクリメントしながら３未満かどうかチェック
+      System.out.print("5");
+      if(num == 2) {
+        flag = true;
+        System.out.print("*";)
+      }
+    }
+  }
+}
+
+/*
+whileループの条件
+num++ < 3  : num をインクリメントしながら３未満かどうかチェック
+!flag   :   flag がfalse であるかチェック
+
+ループの流れ
+1回目のループ
+・ num++ < 3 ：　0から１にインクリメントされ、条件は 1 < 3 でtrue
+・ !flag   :  flag は false なので true 
+・ 条件が両方ともtrueなのでループ内に入る
+・ System.out.print("5");   : 5 が出力される
+・ if(num == 2)  : num は1なので条件は false
+・ ループの終わり
+
+2回目のループ
+・ num++ < 3  : num は1から2にインクリメントされ、条件は2 < 3 でtrue
+・ !flag   :  flag はまだ false なのでtrue
+・ 条件が両方とも true なのでループ内に入る
+・ System.out.print("5");   : 再び 5 が出力される
+・ if(num == 2)  : num は2なので条件はtrue
+      ・ flag = true; : flag がtrue に設定される
+      ・ System.out.print("*";)  :  * が出力される
+・ ループの終わり
+
+3回目のループ
+・ num++ < 3  : num は2から3にインクリメントされ、条件は 3 < 3 でfalse
+・ ループの条件のうち1つがfalseのためループを抜ける
+
+結果
+・ 最初のループで５が出力される
+・ ２回目のループで５と＊が表示される
+・ ３回目のループでは条件がfalseのためループが終了
+したがって、最終的な出力は５５＊になる
+ */
+
+// 【１６】
+class Test {
+  public static void main(String[] args) {
+    int num = 0;  // num という変数を0に初期化
+    do {    // ループ内の処理 true の間ループが繰り返される
+      num++;  // num の後置インクリメント  0 => 1へ
+      if(num % 2 == 0)  // if条件式は、 num 変数を2で割り、余りが0の時trueを返す
+        num++;    // num の後置インクリメント
+      System.out.print(num + "";)
+    }while(num <= 10);  // while 条件式では、num 変数が10を超えたら false を返す
+  }
+}
+
+/*
+1．初期状態
+・ num = 0
+
+2. 1回目のループ
+・ num++ => num = 1
+・ 1 % 2 == 0 は false
+・ System.out.print(num + "")  => 出力１
+
+3．2回目のループ
+・ num++ => num = 2
+・ 2 % 2 == 0 は true
+・ num++ => num 
+・ System.out.print(num + "") => 出力13
+
+4．3回目のループ
+・ num++ => num = 4
+・ 4 % 2 == 0 は true
+・ num++ => num = 5
+・ System.out.print(num + "") => 出力125
+
+5．4回目のループ
+・ num++ => num = 6
+・ 6 % 2 == 0 は true
+・ num++ => num = 7
+・ Sytem.out.print(num + "") => 出力1357
+
+6．5回目のループ
+・ num++ => num = 8
+・ 8 % 2 == 0 は true
+・ num++ => num = 9
+・ System.out.print(num + "") => 出力13579
+
+7．6回目のループ
+・ num++ => num = 10
+・ 10 % 2 == 0 は true
+・ num++ => num = 11
+・ System.out.print(num + "") => 出力1357911
+
+8．ループ終了
+・ num = 11 なので num <= 10 は false となり、ループが終了
+
+このプログラムの出力は 1357911 となる
+if(num % 2 == 0)では少数は出てこないので、条件が true か false かで判断される
+ */
+
+// 【１７】
+class Test {  // クラスの宣言
+  public static void main(String[] args) {
+    int num = 0;    // 変数の宣言と初期化
+    do {    // dp-whileループは少なくとも一度はループ本体を実行することを保証する
+      num++;
+      System.out.print("Hi");
+    }while(num < 3);    // 条件チェックはループの最後に行われる
+  }
+}
+
+/*
+ループの実行過程
+1．初期状態   num = 0
+2．1 回目のループ
+・ num++  => num = 1になる
+・ "Hi" が出力される
+・ 条件 num < 3 をチェックし、num はまだ3未満なのでループ継続
+3．2回目のループ
+・ num++   =>  num = 2になる
+・ "Hi" が出力される
+・ 条件 num < 3 をチェックし、num はまだ3未満なのでループ継続
+4．3回目のループ
+・ num++   =>  num = 3
+・ "Hi" が出力される
+・ 条件 num < 3 をチェックし、num は3になったのでループ終了
+
+出力結果： HiHiHi
+ */
+
+// 【１９】
+class Test {
+  public static void main(String[] args) {
+    String[] ary = {"A", "B", "C"};
+    for(int i = 0; i < 2; i++) {    // 外側のループ i を0から1まで（合計2回）繰り返す
+      for(String s : ary) {   // 内側のループ 配列aryの各要素に対して繰り返し処理
+        System.out.print(ary[i] + "")
+      }
+    }
+  }
+}
+
+/*
+動作の詳細
+1．最初の外側のループ(i = 0)
+・ i が0の時、内側のfor-eachループが開始される
+・ 内側のfor-eachループは、配列aryの各要素を順番に取り出すが、出力は常にary[0]
+   (つまり、"A")となる
+   ・ s が A の時：System.out.print(ary[0] + "")なので "A" が出力
+   ・ s が B の時：System.out.print(ary[0] + "")なので "A" が出力
+   ・ s が C の時：System.out.print(ary[0] + "")なので "A" が出力
+   このループが3回繰り返され、"A"が3回出力される
+2．2回目の外側のループ(i = 1)
+・ i が 1の時、再び内側のfor-eachループが開始
+・ このとき、出力は常に、ary[1](つまり"B")となる
+    ・ s が A の時：System.out.print(ary[1] + "")なので "B" が出力
+    ・ s が B の時：System.out.print(ary[1] + "")なので "B" が出力
+    ・ s が C の時：System.out.print(ary[1] + "")なので "B" が出力
+
+実行結果： AAABBB
+ */
+
+// 【２０】
+class Test {
+  public static void main(String[] args) {
+    int ary[] = {10, 30, 50};
+    int num = 0;    // num 変数は初期値として0で初期化
+    for(int val:arry) {
+      switch (val) {
+        case 10:
+          num++;
+        case 20:
+          num++;
+          break;
+        case 30:
+          num++;
+          break;
+        case 40:
+          num++;
+        case 50:
+          num++;
+      }
+    }
+    System.out.println(num);
+  }
+}
+
+/*
+詳細な動作の説明
+1．初めのループで val = 10 の場合
+・ case 10: が実行され、num++ により num は 1 増加（num = 1）
+・ case 20: に break がないため、次の行が実行されることになる（num++ によって num はさらに 1 増加、num = 2）
+・ break; によって switch 文から抜け出し、次のループへ進む
+
+2. 次のループで val = 30 の場合
+・ case 30: が実行され、num++ により num は 1 増加（num = 3）
+・ break; により switch 文から抜け出し、次のループへ進む
+
+3． 次のループで val = 50 の場合
+・ case 50: が実行され、num++ により num は 1 増加（num = 4）。
+・ case 40: に break がないため、次の行が実行されることになる（num++ によって num はさらに 1 増加、num = 5）
+・ switch 文の処理が終了し、次のループに進む
+
+結果
+最終的な num の値は 4 であり、コンソールに 4 が出力
+
+まとめ
+10の処理で num が 1 増加し、20の処理でさらに 1 増加
+30の処理で 1 増加。
+50の処理で 1 増加し、その後40も処理されてさらに1増加
+これらの処理を踏まえて、最終的なnumの値は 4 
+ */
+
+// 【２１】
+class Test {
+  public static void main(String[] args) {
+    int x = 5;
+    do {
+      x = 4;
+      System.out.println(x);
+    }while(true);
+  }
+}
+
+/*
+while 文の条件式がtrueとなっている上に、doブロック内にループ処理を終了するコードがない
+そのため、実行すると4の出力が続き、無限ループとなる
+ */
+
+// 【２２】
+class Test {
+  public static void main(String[] args) {
+    String[] str = new String[3];
+    str[0] = "JP";
+    str[1] = null;
+    str[2] = "US";
+    for(int i = 1; i < str.lenght; i++) {
+      System.out.print(str[i] + "");
+    }
+  }
+}
+
+/*
+String 型の配列を作成し、文字列を格納している
+なのnull リテラルを明示的に代入しても問題ない
+そして、
+for(int i = 1; i < str.lenght; i++) {
+      System.out.print(str[i] + "");
+    }
+上記の記述で各要素を出力しているが、i 変数は1で初期化されているため、添え字が1の
+要素からの出力となる。
+
+実行結果： null US
+ */
+
+// 【２４】
+User user1 = new User();
+User user2 = user1;
+User user3 = null;
+User user4 = user3;
+
+/*
+メモリ内には、User クラスのオブジェクトがいくつ作成される？
+
+user1 変数は、インスタンス化したUserオブジェクトウィ参照している
+user2 変数には、user1 変数が参照しているオブジェクトを参照している
+つまり、新しいオブジェクトを生成しているわけではない
+user3 変数は、null リテラル(何も参照していないことを意味する値)を代入し、
+user4 も同じくnull リテラルを代入している
+つまり、 user3、 user4 は変数宣言を行っているだけであり、
+新たにオブジェクトを生成しているわけではない
+したがって、作成されたUserオブジェクトの数は1つ
+ */
+
+// 【２５】
+/*
+クラスの説明として正しいもの3つ選択
+・ ソースファイルには、public クラスを含めなくてもよい
+      ソースファイルに public クラスを記述しなくてもコンパイル
+      実行ともに可能である
+
+・ クラスは参照型である
+
+・ ソースファイルには、public クラスを1つだけ含めることができる
+    正しい
+    なお、その場合は、public なクラス名とソースファイル名は同じにする必要がある
+
+不正解
+・ main()メソッドが存在しないクラスは定義できない
+      main()メソッドを持たないクラスを定義することは可能
+
+・ クラスは基本データ型である
+      クラスは参照型に含まれる
+
+・ すべてのクラスは、jabaコマンドで実行することができる
+      javaコマンドで実行可能なクラスはmain()メソッドを持つクラスのため誤り
+
+ */
+
+
+// 【２７】
+public class Fruit {
+  String kind = "orange";  // インスタンス変数
+  public static void main(String[] args) {
+    String kind = args[1];  // ローカル変数
+    Fruit obj = new Fruit();  // インスタンス変数のFruitを参照
+    System.out.println(obj.kind);   // objフィールドの値を表示
+  }
+}
+
+/*
+実行する際は次とする
+> java Fruit lemon gerpe
+上記のコマンドでプログラムを実行すると
+・ args[0] は lemon
+・ arge[1] は gerpe
+
+プログラムの流れ
+1．コマンドライン引数の取得
+・ String kind = arge[1]; により、コマンドライン引数の2番目(args[1])、
+   つまり、gerpe がローカル変数 kind に代入する
+2．Fruitオブジェクトの作成
+・ Fruit obj = new Fruit();により、Fruit クラスの新しいインスタンスが作成
+   ここで、インスタンス変数 kind は orenge に初期化される
+3．インスタンス変数の表示
+・ System.out.println(obj.kind); により、obj の kind インスタンス変数の値が
+   コンソールに表示される
+   この場合、obj.kind は orenge になる
+ */
+
+// 【２９】
+class Test {
+  boolean flag;
+  public static void main(String[] args) {
+    Test obj = new Test();
+    if([  1  ]) {
+      // obj.flag
+      System.out.print("OK");
+    }else {
+      System.out.print("NG");
+    }
+  }
+}
+
+/*
+プログラムが正常にコンパイルするために１に挿入するコード
+obj.flag
+
+不正解
+・ obj.flag.equals("true")
+    obj.flagにより、インスタンス変数であるflagにアクセスするが、flagは、
+    基本データ型のbooleanになる
+    基本データ型は値そのものを表現しており、equals()等のメソッドは持っていない
+    したがってコンパイルエラー
+
+・ obj.flag == "true"
+    基本データ型(この例ではboolean型)と参照型(この例ではtrue文字列であるString 型)を==による
+    比較はできない為コンパイルエラー
+
+・ obj.flag = "true"
+    基本データ型(この例ではboolean型)の変数に、
+    参照型データ(この例ではtrue文字列であるString 型)を = による代入はできない為
+    コンパイルエラー
+
+・ obj.flag.equals(true)
+    obj.flagにより、インスタンス変数であるflagにアクセスするが、flagは、
+    基本データ型のbooleanになる
+    基本データ型は値そのものを表現しており、equals()等のメソッドは持っていない
+    したがってコンパイルエラー
+
+ */
+// 【３０】
+/*
+User クラスのコンストラクタ定義として正しいもの2つ
+・ private User(){}   // 〇
+      private なコンストラクタ定義は可能
+
+・ public final User(){}
+      コンストラクタに final 修飾子は付与できない
+      コンパイルエラー
+
+・ private void User(){}
+      戻り値があると、メソッドとして判断される
+      したがってコンパイルは成功するが、コンストラクタ定義としては判断されない
+
+・ public User(int id){}    // 〇
+      引数を持つ public なコンストラクタ定義は可能
+
+・ private static User(){}
+      コンストラクタに static 修飾子は付与できない
+      コンパイルエラー
+
+ */
+
+// 【３１】
+class Test {
+  public static void main(String[] args) {
+    System.out.print("data:" + args[2] + args[3]);
+  }
+  public static void main(char[] args) {
+    System.out.print("data =" + args[0] + args[1]);
+  }
+}
+
+/*
+> java Test w x y z
+
+コンパイル、実行した結果として正しいもの
+
+main()メソッドをオーバーライドしているが、javaコマンドを実行した際は、
+必ず、String 型の配列を引数に持つmain()メソッドが呼び出される
+ */
+
+// 【３３】
+class Test {
+  public float calc(int val1, float val2) {
+    return val1 + val2;
+  }
+  public String calc(String val1, String val2) {
+    return val1 + val2;
+  }
+  public static void main(String[] args) {
+    Test obj = new Test();  // Testクラスのインスタンス化
+    System.out.println("ans:" + obj.calc(10,30));
+    System.out.println("ans:" + obj.calc("20","10"));
+  }
+}
+
+/*
+メソッドのオーバーロード
+・ float calc(int val1, float val2)： 整数と浮動小数点を受け取り、その和を返す
+・ String calc(String val1, String val2)： 2つの文字列を受け取り、
+   それらを連結して新しい文字列を返す
+
+mainメソッド
+エントリーポイント
+objを使って、オーバーロードされたcalcメソッドを呼び出している
+・ obj.calc(10, 30)       整数と浮動小数点の引数を取る これは、40.0になる
+・ obj.calc("20", "10")   文字列の引数を取る これは、2010となる
+
+・ オーバーロードにより、同じメソッド名で異なる引数型を扱えるため、同じような操作を
+   行いたいが異なるデータ型を扱い場合に便利
+・ main メソッドは、プログラムの実行を開始する場所であり、ここではオブジェクトの生成と
+   メソッドの呼び出しをしている
+ */
+
+// 【３５】
+/*
+カプセル化を実現しているコード3つ選択
+・ private int id;  // 〇
+      フィールドが private で宣言されているため、外部クラスから直接アクセスできない
+      
+・ public int id;
+・ private int getld(){ return id; }
+・ public int getld(){ return id; }   //〇
+・ private void setld(int id){ this.id = id; }
+・ public void setld(int id){ this.id = id; }   //〇
+
+カプセル化されたコードにおいて、実データである変数が他クラスからむやみに変更
+されることを防ぐため、一般的には変数は private 指定し、その変数にアクセスする
+メソッドは public 指定にすることが推奨されている
+
+gettter・setterとは
+private になっているフィールド変数を
+・ 変更するのが setter
+・ 取得するのが getter
+どのように使うのかというのは、カプセル化したものを扱うため
+
+getter
+フィールドの値を取り出すだけのメソッド
+private に設定されたフィールドは外部からアクセスできないので、メソッドを介して、
+アクセスする必要がある
+
+//フィールド変数を定義
+private データ型 フィールド名
+
+【getterの書き方】
+public データ型 getフィールド名() {
+    return this.フィールド名;
+}
+
+number というフィールド変数に対して作ったサンプル
+// フィールド変数
+private int number;
+
+// Getter
+public int getNumber() {
+    return this.number;
+}
+
+命名規則【getter】
+・ フィールド名の頭に「get」を付けたキャメルケースで書くこと！(例：getName)
+・ getter,setter は外部で扱えなくてはいけない為、すべて「public」で記述すること！
+
+
+setter
+フィールドに値を代入するためのメソッド
+
+【setterの書き方】
+// フィールド変数
+private int number;
+// setter
+public void setNumber(int number) {
+    this.number = number;
+}
+
+number というフィールド変数に対して作った setter のサンプル
+// フィールド変数
+private int number;
+// setter
+public void setNumber(int number) {
+    this.number = number;
+}
+
+命名規則
+・ フィールド名の頭に「 set 」をつけたキャメルケースで書くこと。( 例: setName )
+・ getter, setter は 外部で扱えなくてはいけないため、すべて 「public」で記述すること！
+ */
+
+// 【３６】
+class SuperClass {}
+
+class SubClass extends SuperClass {
+  private double data;
+
+  private void setData(double data)
+    this.data = data;
+}
+
+/*
+satData() メソッドの説明として正しいもの
+○ 同じパッケージ内にあるクラスのメソッドから呼び出すことができる    // X
+    private メソッドは同じクラス内クラス内からのみアクセス可能
+
+○すべてのパッケージ内にあるクラスのメソッドから呼び出すことができる   // X
+    private メソッドは他のパッケージやクラスからはアクセスできない
+
+○同じパッケージ内にある、SuperClassクラスのサブクラスのメソッドから呼び出すことができる   // X
+    private メソッドはサブクラスからもアクセスできない
+
+○クラス内の他メソッドから呼び出すことができる   // 〇
+    praivate メソッドは同じクラス内の他のメソッドから呼び出すことが可能
+
+○スーパークラスのメソッドから呼び出すことができる   // X
+    private メソッドはスーパクラスからもアクセスできない
+
+ */
+
+// 【３７】
+class Foo {
+  static int val;   // 静的メソッドでvalはクラス全体で共有
+  static int methodA() {
+    return ++val;
+  }
+  int methodB() {
+    return methodA();
+  }
+  class Test {
+    public static void main(String[] args) {
+      Foo obj = new Foo();   // Foo クラスのインスタンス obj を作成
+      obj.methodA();
+      int num = obj.methodB();
+      System.out.println(num);
+    }
+  }
+}
+/*
+コンパイル、実行した結果として正しいもの
+Foo クラスは、以下によりコンパイル、実行ともに成功する
+・ インスタンスメソッド(methodB())が static メソッド(methodA())を呼び出している
+・ stataic メソッド(nethodA())が static メソッド(val)を利用している
+
+Test クラス側の13行目では、methodA()メソッド呼び出しにより val 変数がインクリメントされる
+14行目 methodA() メソッドが呼び出されている、 val 変数インクリメントする
+15行目では2が出力する
+ */
+
+// 【３８】
+/*
+スーパークラスの構成要素のうち、サブクラスが継承するものは？2つ選択
+・ public 修飾子が指定されたコンストラクタ    // X
+・ private 修飾子が指定されたコンストラクタ   // X
+・ final 修飾子飲み指定されたメソッド   // 〇
+・ public 修飾子が指定されたインスタンスメソッド  // 〇
+・ private 修飾子が指定されたインスタンスメソッド // X
+・ private 修飾子が指定された変数     // X
+
+継承時にサブクラスが引き継ぐのは、スーパークラスで定義した変数とメソッド
+コンストラクタは、引き継がれない。また、private修飾子が付与されたメンバは自クラス
+内でのみ公開となり、サブクラスであってもアクセスはできない。
+なお、final修飾子が付与されたメソッドは、サブクラスでのオーバーライドが禁止となる
+しかし、サブクラスからアクセスは可能
+ */
+
+// 【３９】
+class Foo {
+  Foo(){System.out.print("Foo()");}   // 引数なしコンストラクタ
+  Foo(String s){System.out.print("FOO(String s)");}   // 引数String sを持つコンストラクタ
+}
+class Test extends Foo {    // Fooクラス継承
+  Test(){System.out.prrint("Test()");}  // 引数なしコンストラクタ
+  Test(String s){System.out.print("Test(String s)");} // 引数String sを持つコンストラクタ
+  public stetic void main(String[] args) {
+    Test obj = new Test("test");
+  }
+}
+
+/*
+各クラスのコンストラクタでは、this()やsuper()によるコンストラクタ呼び出しのコードはない
+したがって、暗黙的に、super()が追加される
+これにより、Test obj = new Test("test");のTestクラスのコンストラクタが呼ばれると、
+Test(String s){System.out.print("Test(String s)");}に制御が移り、暗黙で追加されたsuper()により
+Foo(){System.out.print("Foo()");}に制御が移り、Test(String s){System.out.print("Test(String s)");}
+が呼び出される
+【実行結果】
+Foo() Test(String s)
+
+*/
+// 【４０】
+class User {
+  int data;
+  public long task(int num){
+    return data += num;
+  }
+}
+
+/*
+オーバーライドのルール
+・ メソッド名、引数リストがまったく同じメソッドをサブクラスで定義する
+・ 戻り値は、スーパークラスで定義したメソッドが返す型と同じか、その型のサブクラス型とする
+・ アクセス修飾子は、スーパークラスと同じものか、それよりも公開範囲が広いものであれば使用可能
+
+User クラスのサブクラスでtask()メソッドのオーバーライドをする際の説明として正しいもの
+【正解】オーバーライドを行うメソッドの戻り値は long 型とする必要がある
+ */
+
+// 【４３】
+class ClassA {
+  long funcA(int num){ return 0; }
+  long funcB(int num, String str){ return 0; }
+}
+class ClassB extends ClassA {
+  long funcA(int num){ return 0; }
+  int funcA(String str){ return 0; }
+  int funcA(long num){ return 0; }
+  public long funcB(int num, String str){ return 0; }
+    public long funcB(String str, int num){ return 0; }
+}
+/*
+継承関係のあるオーバーロードを問いている
+ClassA を継承した、ClassB では、5つのメソッドを定義している
+このコードはすべてコンパイルは成功する
+そして、オーバーロードとしてみなされるのは下記のとおりである
+
+メソッドのオーバーロードを行っているコードの行3つ
+・ int funcA(String str){ return 0; }
+・ public long funcB(int num, String str){ return 0; }
+・ public long funcB(String str, int num){ rrturn 0; }
+ */
+
+// 【４４】
+class ClassA {
+  String msg;
+  ClassA(String msg){
+    this.msg = msg;
+  }
+}
+class ClassB extends ClassA {
+  private String type;
+  ClassB(String msg, String type){
+    [   1   ]
+    // super(msg);
+    //   this.type = type;
+  }
+  public static void main(String[] args) {
+    ClassB obj = new ClassB("Hi", "Test");
+    System.out.println(obj.msg + ":" + obj.type);
+  }
+}
+
+/*
+Hi:Test の出力結果を得る必要があるため、ClassA クラスのmsg変数及び、
+ClassB クラスのtyoe変数にはインスタンス化時に引数で渡すHiとTestが
+代入される必要がある
+また、ClassA クラスでは引数を持つコンストラクタのみ定義しているので、サブクラス
+であるClassB クラスでは明示的に子のコンストラクタを呼ぶ必要がある
+
+this.type = type; // X
+  super(msg);
+    super()の呼び出しが、2行目に記述されているため誤り
+
+this.type = type; // X
+  super.msg = msg;
+    スーパークラスのコンストラクタ呼び出しコードがない為誤り
+    スーパークラスのコンストラクタ呼び出し子どがないことから、暗黙でsuper()の
+    コードが追加されることになる
+    しかし、ClassA クラスには引数を持たないコンストラクタがない為コンパイルエラーになる
+
+super.msg = msg;  // X
+  this.type = type;
+    スーパークラスのコンストラクタ呼び出しコードがない為誤り
+    スーパークラスのコンストラクタ呼び出し子どがないことから、暗黙でsuper()の
+    コードが追加されることになる
+    しかし、ClassA クラスには引数を持たないコンストラクタがない為コンパイルエラーになる
+
+this.type = type; // X
+  ClassA.msg = msg;
+    ClassA.meg とあり、これは static 変数へアクセスするときの記述なのでコンパイルエラー
+
+ */
+
+// 【４５】
+class ClassA {
+  private String msg; // デフォルトコンストラクタ
+  int num;
+  ClassA(){}  // 引数なしのコンストラクタ
+  ClassAS(String msg; int num){ // 引数付きコンストラクタ
+    this.msg = msg;
+    this.num = num;
+  }
+  public void show(){
+    System.out.println(msg + ":" + num);
+  }
+}
+class ClassB extends ClassA {
+
+}
+
+/*
+ClassA の構成要素のうち、ClassB が継承するものは？2つ
+・ num変数
+・ show()メソッド
+
+継承時にサブクラスが引き継ぐのは、スーパークラスで定義した変数とメソッド
+コンストラクタは、引き継がれない
+また、private 修飾子が付与されたメンバは自クラス内のみ公開となる
+サブクラスであってもアクセスはできない
+ */
+
+// 【４６】
+classA {
+  int func(int x, int y) {
+    return x / y;
+  }
+}
+classB {
+  int func(int x, int y) {
+    return(int)(Math.Pl * x * y);
+  }
+}
+class Test {
+  public stetic void main(String[] args) {
+    A a = new A();
+    System.out.print(a.func(10, 2) + ""); // 5
+    B b = new B();
+    System.out.print(b.func(10, 10));  // 3.14 * 10 * 10の演算が行われる
+  }                                    // 314
+}
+
+/*
+コンパイル、実行した結果として正しいものは？
+
+下記の記述はJavaライブラリで提供している Math クラスのPI定数を使用している
+Math.PI 変数は円周率を表す
+return(int)(Math.Pl * x * y);
+その結果は314.1592653589793となるが、int型にキャストしているため
+実行結果は314となる
+
+ */
+
+
+// 【４７】
+abstract class ClassA {
+  public abstract String method();  // 抽象メソッド
+}
+class ClassB extends ClassA {
+  [  1  ]
+  // public String method() { return null; }
+}
+
+/*
+抽象クラスである ClassA を継承した ClassB では、抽象メソッドであるmethod()を
+適切にオーバーライドする必要がある
+
+オーバーライドの条件
+・ メソッド名、引数の数と型、戻り値の方が一致する
+・ アクセス修飾子が同じか、より緩和されている
+ */
+
+// 【４８】
+public abstract class Foo {
+  public Foo(String str) {
+    methodA(str);
+    methodB();
+  }
+  public void methodA(String str) {
+    System.out.print(str + "");
+  }
+  public abstract void methodB();
+
+  public static void main(String[] args) {
+    System.out.print("start");
+    Foo obj = new Foo("orange");  // 抽象クラスFooのインスタンスを直接作成しようとしている
+    obj.methodA("lemon");
+  }
+}
+
+/*
+Foo クラスは抽象クラスであるためインスタンス化できない為、コンパイルエラーになる
+ */
+
+// 【４９】
+/*
+サブクラス側でスーパークラス側のメソッドを実装することは？
+ポリモフィズム
+
+問題文はオーバーライドを意味している
+オーバーライドによりポリモフィズムが実現できるため
+ */
+
+// 【５０】
+/*
+インタフェースの説明
+・ インタフェースで宣言した変数は、暗黙的にprivate finalとなる   // X
+・ インタフェースがインタフェースを実装（implements)できる       // X
+・ インタフェースは複数のインタフェースを継承（extends）できる   // 〇
+・ インタフェースでは抽象メソッドを1つ以上宣言する必要がある     // X
+
+
+インタフェース内で変数を宣言すると、暗黙的に public static final 修飾子が付与する
+インタフェースを実装(implements)できるのはクラス
+インタフェースは複数のインタフェースを継承することが可能である
+注意点として、具象クラスおよび抽象クラスが継承(extends)できるクラスの数は1つだけ
+インタフェースでは、抽象メソッドを記述せず定数のみ宣言することも可能(Mylnter.java)
+ */
+
+// 【５１】
+interface l {
+  void show();
+}
+class ClassA inplements l {
+  public void show() {
+    System.out.println("ClassA");
+  }
+}
+class ClassB extends ClassA {
+  public void show() {
+    System.out.println("ClassB");
+  }
+  public stetic void main(String[] args) {
+    l obj;
+    ClassA objA = new ClassA();   // インスタンス化
+    ClassB objB = new ClassB();   // インスタンス化
+    obj = objB;     // l 型で宣言した変数は objB 変数が参照しているオブジェクトを参照
+    obj.show();     // show()メソッドを呼び出しているのはClassBのオブジェクト
+  }
+}
+
+/*
+インターフェース l
+・ interface l は、show()という名前のメソッドを宣言するインターフェース
+・ インターフェースは、メソッドの宣言のみを持ち、具体的な実装は持たない
+・ インターフェースを実装するクラスは、宣言されたメソッドをすべて実装する必要がある
+
+クラス ClassA
+・ class ClassA implements l は、インターフェースを実装するクラス ClassA を定義
+・ public void show() は、l インターフェースで宣言された show() メソッドを実装
+・ このメソッドは、"ClassA" という文字列を出力
+
+クラス ClassB
+・ class ClassB extends ClassA は、ClassA クラスを継承するクラス ClassB を定義
+・ ClassB は、ClassA クラスで宣言された show() メソッドをオーバーライドしている
+・ このメソッドは、"ClassB"という文字列を出力
+
+main メソッド
+・ public static void main(String[] args) は、プログラムのエントリーポイント
+・ l obj; は、 l インターフェース型の変数 obj を宣言する
+・ ClassA objA = new ClassA(); は、 ClassA クラスのインスタンス obj を作成
+・ ClassB objB = new ClassB(); は、 ClassB クラスのインスタンス obj を作成
+・ obj = objB; は、 objB を obj に代入する
+      ◦ これにより、obj は ClassB オブジェクトを参照する
+・ obj.show(); は、obj オブジェクトの show() メソッドを呼び出す
+      ◦ ClassB オブジェクトの show() メソッドが呼び出されるため、"ClassB"
+        という文字列が出力される
+ */
+
+// 【５２】
+/*
+interface X {}
+
+interface Y {}
+
+classZ {}
+
+Foo クラスの定義として正しいもの
+・ public class Foo extends Z implements X, Y {}  // 〇
+・ public class Foo implements Z extends X, Y {}  // X
+・ public class Foo extends X, Y implements Z {}  // X
+・ public class Foo implements X, Y extends Z {}  // X
+
+クラスを定義する際、複数のインタフェースを実装(implements)することは可能
+また、implements と extends を併用も可能であるが、extends を書く必要がある
+ */
+
+// 【５４】
+class Bar {
+  void func() {
+    System.out.println("Bar:func()");
+  }
+}
+class Test extends Bar {
+  void func() {
+    System.out.println("Test:func()");
+  }
+  public static void main(String[] args) {
+    Bar obj = new Bar();
+    test tObj = (Test)obj;
+    tObj.func();
+  }
+}
+
+/*
+Bar クラス、Test クラスの各クラスでは文法として誤りはない為、コンパイルは成功する
+ポイントとして、Bar obj = new Bar();の obj 変数は、Bar 型であり、tObj 変数は Test 型
+これらのクラスは継承関係があるため、コンパイルが成功する
+しかし、obj が参照しているのは Bar のオブジェクトであり、test tObj = (Test)obj;で
+異なる型にキャストしているため、実行時エラーになる
+もし、以下のようにTest クラスをインスタンス化していれば、コンパイル、実行ともに成功し、
+実行結果はTest:func()になる
+
+Bar obj = new Test();
+ */
+
+// 【５６】
+class Automobile {
+  public void drive() { System.out.print("go forward"); }
+}
+class Freeari extends Automobile {
+  public void drive() { System.out.print(go fast); }
+}
+public class Test {
+  public static void main(String[] args) {
+    Automobile[] autos = { new Automobile(), new Ferrari() };
+      for(int x = 0; x < autos.length; x++)
+      autos[x].drive();
+  }
+}
+
+/*
+Ferrari クラスはAutomobile クラスを継承し、drive() メソッドをオーバーライドしている
+したがって、Automobile[] autos = { new Automobile(), new Ferrari() };のように、
+Automobile 型で宣言した配列で2つのオブジェクトを扱うことは可能であり、
+autos[x].drive(); で drive() メソッドを呼び出すと、各クラスで実装した処理が実行される
+実行結果： go forward go fast
+ */
+
+// 【５８】
+/*
+com.example.city.Metropolitan クラスを利用する際の正しい import 文は？2つ
+・ import com.*;  // X
+・ import com.example.*;  // X
+・ import com.example.city.Metropolitan;  // 〇
+・ import com.example.city.Met*;  // X
+・ static import com.example.city.Metropolitan; // X
+・ import static com.example.city.Metropolitan; // X
+・ import com.example.city.*; // 〇
+
+import 文では、import キーワードに続き、インポートしたいクラス名をパッケージ名から記述する
+また、クラス名の代わりに「＊」(アスタリスク)を使用することで、指定されたパッケージに属する
+すべてのクラスをインポートできる
+ */
+
+// 【６０】
+package pack;
+class Test {
+  int i = 100;
+}
+
+/*
+i 変数の値を直接変更できるのは？
+・ Testクラスを継承したすべてのサブクラス // X
+      継承関係はアクセス修飾子に影響を与えない
+
+・ packパッケージ内に含まれるすべてのクラス // 〇
+      default アクセス修飾子は同じパッケージ内のクラスからのみアクセス可能
+
+・ このTestクラスのみ   // X
+      他のクラスからは i 変数は見えない
+
+・ すべてのクラス // X
+      default アクセス修飾子は同じパッケージ内でのみ有効である
+
+・ どのクラスからも直接変更はできない // X
+      i 変数は同じパッケージ内であればアクセス可能である
+
+アクセス修飾子を指定していない変数は、そのクラス内のメンバまたは同じパッケージ内に
+含まれるクラスから直接変更することができる
+なお、Test クラスを継承したサブクラスが、Test クラスと異なるパッケージに属することのある
+
+Javaにおいて、変数、メソッド、クラスなどのアクセス修飾子を定義するには、public、private、protected
+などの修飾子をキーワードとして記述する
+
+しかし、何も修飾子が記述されていない場合、そのメンバは default アクセス修飾子を持つことになる
+
+default アクセス修飾子は、同じパッケージ内のクラスからのみアクセス可能であることを意味する
+Test クラスと同じ、pack パッケージに属するクラスであれば、i 変数の値を直接参照したり変更することができる
+
+例外：サブクラスからのアクセス
+継承関係にあるサブクラスは、たとえ別のパッケージに属していても、protected アクセス修飾子を持つメンバにアクセス可能
+しかし、i 変数は default アクセス修飾子であるため、継承関係だけではアクセスできない
+*/
