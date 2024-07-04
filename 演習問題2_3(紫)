@@ -1,0 +1,82 @@
+// 【２５】
+/*
+クラスの説明として正しいもの3つ選択
+・ ソースファイルには、public クラスを含めなくてよい
+    ソースファイルに pubic クラスを記述しなくてもコンパイル、実行ともに可能
+
+・ クラスは参照型である
+・ ソースファイルには、public クラスを1つだけ含めることができる
+    なお、その場合は、public なクラス名とソースファイル名は同じにする必要がある
+
+【不正解】
+・ main() メソッドが存在しないクラスは定義でいない
+    main() メソッドを持たないクラスを定義することは可能
+
+・ クラスは基本データ型である
+      クラスは参照型である
+
+・ すべてのクラスは、java コマンドで実行することができる
+      javaコマンドで実行可能なクラスはmain() メソッドを持つクラスのため誤り
+ */
+
+// 【３０】
+/*
+User クラスのコンストラクタ定義として正しいもの2つ
+・ private User(){}   // 〇
+      private なコンストラクタ定義は可能
+
+・ public final User(){}
+      コンストラクタに final 修飾子は付与できない
+      コンパイルエラー
+
+・ private void User(){}
+      戻り値があると、メソッドとして判断される
+      したがってコンパイルは成功するが、コンストラクタ定義として判断されない
+
+・ public User(int id){}  // 〇
+      引数を持つ public なコンストラクタ定義は可能
+
+・ private static User(){}
+      コンストラクタに static 修飾子は付与できない
+      コンパイルエラー
+
+ */
+
+// 【３５】
+/*
+カプセル化を実現しているコード3つ選択
+・ private int id;  // 〇
+      フィールドが private で宣言されているため、外部クラスから直接アクセスできない
+
+・ public int id;
+・ private int getld(){ return id; }
+・ public int getld(){ return id; }   // 〇
+・ private void setld(ind id){ this.id = id; }
+・ public void setld(int id){ this.id = id; } // 〇
+
+カプセル化されたコードにおいて、実データである変数が他クラスからむやみに変更されることを防ぐため
+一般的には変数は private 指定し、その変数にアクセスするメソッドは public 指定に
+することが推奨されている
+ */
+
+// 【４８】
+public abstract class Foo { // Fooは抽象メソッド
+  public Foo(String str) {
+    methodA(str);
+    methodB();
+  }
+  public void methodA(String str) {
+    System.out.print(str + "");
+  }
+  public abstract void methodB();
+
+  public static void main(String[] args) {
+    System.out.print("start");
+    Foo obj = new Foo("orenge");  // 抽象メソッドのFOOをインスタンス化しようとしている
+    obj.methodA("lemon");
+  }
+}
+/* 
+Foo クラスは抽象メソッドであるためインスタンス化できない
+したがって、Foo obj = new Foo("orenge");でコンパイルエラーになる
+*/

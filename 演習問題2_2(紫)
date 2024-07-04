@@ -1,0 +1,547 @@
+// 【１】
+/*
+Java仮想マシン(JVM)が行っていることとして正しい説明
+
+Java コマンドよりクラス(.class)ファイルを実行すると、JVMは指定されたクラスファイル
+の読み込み（ロード）を行う。そして、クラスファイル内に書かれたバイトコードを解釈し実行
+する
+
+バイトコードの解釈
+.class ファイルの実行
+.class ファイルのロード
+ */
+
+// 【２】
+/*
+Java のソースファイルに関する説明として正しいもの
+・ ソースファイル名は、public 指定されたクラス名と一致する必要がある
+      public クラスはソースファイル名と同じにするという制限がある
+
+・ 1つのソースファイル内に、インターフェースとクラスの両方を含めることができる
+      1つのソースファイル内に、複数のインタフェース、複数のクラスを定義可能
+
+・ package 文は任意であるが、記述する際はソースファイルの先頭に記述する必要がある
+      package 文を使用したパッケージ化は推奨されているが、必須ではない
+      また、パッケージ宣言は、ソースファイルの先頭に記述するため正しい
+
+・ 1つのソースファイル内には、必要に応じて複数行の import 文を記述可能
+・ import 文は、ソースファイルの先頭で記述する
+・ final クラスも含めて1つのソースファイル内に複数定義可能である
+
+ */
+
+// 【１１】
+class Test {
+  public static void main(String[] args) {
+    int x = 10, y = 5;
+    if(x = 10) {}
+    if(x != 0 | y != 0) {}
+    if(y == 10) {}
+    if(x == 10 and y == 5) {}
+    if(x >= y){}
+  }
+}
+
+/*
+if 文の条件式は、判定結果が boolean 値になる式でなければならない
+したがって、if(x = 10) {}では文法エラーになる
+また、Java 言語では、if(x == 10 and y == 5) {}のような and 論理演算子は
+提供されていない。したがって、文法エラーとなる
+ */
+
+// 【２５】
+/*
+クラスの説明として正しいもの
+・ ソースファイルには、public クラスを含めいなくてもよい
+      ソースファイルに public クラスを記述しなくてもコンパイル実行ともに成功
+
+・ クラスは参照型である
+・ ソースファイルには、public クラスを1つだけ含めることができる
+      正しい
+      なお、その場合は、public なクラス名とソースファイル名は同じにする必要がある
+
+【不正解】
+・ main() メソッドが存在しないクラスは定義できない
+      main() メソッドを持たないクラスを定義することは可能
+
+・ クラスは基本データ型である
+      クラスは参照型に含まれる
+
+・ すべてのクラスは、Java コマンドで実行することができる
+      Java コマンドで実行可能なクラスは main() メソッドを持つクラスのため誤り
+
+ */
+
+// 【２７】
+public class Fruit {
+  String kind = "orange";   // インスタンス変数
+  public static void main(String[] args) {
+    String kind = args[1];    // ローカル変数
+    Fruit obj = new Fruit();  // Fruit クラスをインスタンス化
+    System.out.println(obj.kind);   // オブジェクトが持つインスタンス変数にアクセス
+  }
+}
+
+/*
+> java Fruit lemon grape
+上記のコマンドでプログラムを実行すると
+・ args[0] は lemon
+・ arge[1] は gerpe
+
+プログラムの流れ
+1．コマンドライン引数の取得
+    ・ String kind = arge[1]; により、コマンドライン引数の2番目(args[1])、
+       つまり、gerpe がローカル変数 kind に代入する
+2．Fruit オブジェクトの作成
+    ・ Fruit obj = new Fruit(); により、Fruit クラスの新しいインスタンスが作成
+       ここで、インスタンス変数 kind は orenge に初期化される
+3．インスタンス変数の表示
+    ・ System.out.println(obj.kind); により、obj の kind インスタンス変数の値が
+       コンソールに表示される
+
+実行出力：　obj.kind は orenge になる
+ */
+
+// 【３０】
+/*
+User クラスのコンストラクタ定義として正しいものは？
+・ private User() {}   // 〇
+      private なコンストラクタ定義は可能
+
+・ public final User() {}
+      コンストラクタに final 修飾子は付与できない
+      コンパイルエラー
+
+・ private void User() {}
+      戻り値があると、メソッドとして判断される
+      したがってコンパイルは成功するが、コンストラクタ定義としては判断されない
+
+・ public User(int id) {}  // 〇
+      引数を持つ public なコンストラクタ定義は可能
+
+・ private static User() {}
+      コンストラクタに static 修飾子は付与できない
+      コンパイルエラー
+
+ */
+
+// 【３１】
+class Test {
+  public static void main(String[] args) {
+    System.out.print("data:" + args[2] + args[3]);
+  }
+  public static void main(char[] args) {
+    System.out.print("data = " + args[0] + args[1]);
+  }
+}
+/*
+>java Test w x y z
+
+コンパイル、実行した結果として正しいもの
+
+main() メソッドをオーバーライドしているが、java コマンドを実行した際は、必ず、
+String 型の配列を引数に持つ main() メソッドが呼び出される
+
+実行出力： data: y z
+ */
+
+// 【３３】
+class Test {
+  public float calc(int val1, float val2) {
+    return val1 + val2;
+  }
+  public String calc(String val1, String val2) {
+    return val1 + val2;
+  }
+  public static void main(String[] args) {
+    Test obj = new Test();
+    System.out.println("ans:" + obj.calc(10, 30));
+    System.out.println("ans:" + obj.calc("20", "10"));
+  }
+}
+
+/*
+コンパイル、実行した結果として正しいものは？
+
+
+calc メソッドをオーバーライドしている。引数の型が異なるため定義可能
+System.out.println("ans:" + obj.calc(10, 30));の呼び出しでは、int 型の
+10 と 30 を引数に指定している。型の合致する calc メソッドはないが、
+public float calc(int val1, float val2)では int 型と flat 型を引数に取る
+calc メソッドが定義されている。int => float は暗黙の型変換が行われるので、
+このメソッドが実行される。int 値 + float 値の結果は、float 型となるため、
+10行目の実行結果は40.0
+また、11行目の呼び出しは5行目の calc メソッドが実行され、文字列結合し、
+実行結果は 2010 になる
+ */
+
+// 【３５】
+/*
+カプセル化を実現しているコード
+・ private int id;  // 〇
+    フィールドがprivate で宣言されているため、外部クラスから直接アクセスできない
+
+・ public int id;
+・ private int getId() { return id; }   // 〇
+・ public int getId() { return id; }
+・ private void setId(int id) { this.id = id; } 
+・ public void setId(int id) { this.id = id; }  // 〇
+
+カプセル化されたコードにおいて、実データである変数が他クラスからむやみに変更
+されることを防ぐため、一般的には変数は private 指定し、その変数にアクセスする
+メソッドは public 指定にすることが推奨されている
+
+gettter・setterとは
+private になっているフィールド変数を
+・ 変更するのが setter
+・ 取得するのが getter
+どのように使うのかというのは、カプセル化したものを扱うため
+
+getter
+フィールドの値を取り出すだけのメソッド
+private に設定されたフィールドは外部からアクセスできないので、メソッドを介して、
+アクセスする必要がある
+
+//フィールド変数を定義
+private データ型 フィールド名
+
+【getterの書き方】
+public データ型 getフィールド名() {
+    return this.フィールド名;
+}
+
+number というフィールド変数に対して作ったサンプル
+// フィールド変数
+private int number;
+
+// Getter
+public int getNumber() {
+    return this.number;
+}
+
+命名規則【getter】
+・ フィールド名の頭に「get」を付けたキャメルケースで書くこと！(例：getName)
+・ getter,setter は外部で扱えなくてはいけない為、すべて「public」で記述すること！
+
+
+setter
+フィールドに値を代入するためのメソッド
+
+【setterの書き方】
+// フィールド変数
+private int number;
+// setter
+public void setNumber(int number) {
+    this.number = number;
+}
+
+number というフィールド変数に対して作った setter のサンプル
+// フィールド変数
+private int number;
+// setter
+public void setNumber(int number) {
+    this.number = number;
+}
+
+命名規則
+・ フィールド名の頭に「 set 」をつけたキャメルケースで書くこと。( 例: setName )
+・ getter, setter は 外部で扱えなくてはいけないため、すべて 「public」で記述すること！
+ */
+
+// 【３６】
+class SuperClass {}
+
+class SubClass extends SuperClass {
+  private double data;
+
+  private void setData(double data) {
+    this.data = data;
+  }
+}
+
+/*
+setData() メソッドの説明として正しもの
+クラス内の他のメソッドから呼び出すことができる
+
+問題文のsetData() メソッドは private 修飾子が付与されている
+private メンバは、同じクラス内のメンバからしかアクセスを許可しない
+
+ */
+
+// 【３７】
+class Foo {
+  static int val;
+  static int methodA() {
+    return ++val;
+  }
+  int methodB() {
+    return methodA();
+  }
+  class Test {
+    public static void main(String[] args) {
+      Foo obj = new Foo();
+      obj.methodA();
+      int num = obj.methodB();
+      System.out.println(num);
+    }
+  }
+}
+
+/*
+コンパイル、実行した結果として正しいもの
+Foo クラスは、以下によりコンパイル、実行ともに成功する
+・ インスタンスメソッド(methodB())が、メソッド(methodA())を呼び出している
+・ stetic メソッド(methodA())が、メソッド(val)を利用している
+
+実行結果： 2
+ */
+
+// 【３８】
+/*
+スーパークラスの構成要素のうち、サブクラスが継承するものは？
+・ public修飾子が指定されたコンストラクタ
+・ private修飾子が指定されたコンストラクタ
+・ final修飾子のみ指定されたメソッド  // 〇
+・ public修飾子が指定されたインスタンスメソッド // 〇
+・ private修飾子が指定されたインスタンスメソッド
+・ private修飾子が指定された変数
+ 
+継承時にサブクラスが引き継ぐのは、スーパークラスで定義した変数とメソッド
+コンストラクタは、引き継がれない。また、private 修飾子が付与されたメンバは
+自クラス内でのみ公開となり、サブクラスであってもアクセスできない
+なお、final 修飾子が付与されたメソッドは、サブクラスでのオーバーライドが禁止となる
+しかし、サブクラスからアクセスは可能
+ */
+
+// 【４４】
+class ClassA {
+  String msg;
+  ClassA(String msg) {
+    this.msg = msg;
+  }
+  class ClassB extends ClassA {
+    private String type;
+    ClassB(String msg, String type) {
+      [  1  ]
+      // super(msg);
+      // this.type = type;
+    }
+    public static void main(String[] args) {
+      ClassB obj = new ClassB("Hi", "Test");
+      Syste.out.println(obj.msg + ":" + obj.type);
+    }
+  }
+}
+
+/*
+Hi : Text の出力結果を得る必要がある
+ClassA クラスの msg 変数、および、ClassB クラスの type 変数にはインスタンス化時に
+引数で渡す Hi と Test が代入される必要がある
+また、ClassA クラスでは引数を持つコンストラクタのみ定義されているので明示的にこの
+コンストラクタを呼ぶ必要がある
+
+this.type = type; // X
+  super(msg);
+    super()の呼び出しが、2行目に記述されているため誤り
+
+this.type = type; // X
+  super.msg = msg;
+    スーパークラスのコンストラクタ呼び出しコードがない為誤り
+    スーパークラスのコンストラクタ呼び出し子どがないことから、暗黙でsuper()の
+    コードが追加されることになる
+    しかし、ClassA クラスには引数を持たないコンストラクタがない為コンパイルエラーになる
+
+super.msg = msg;  // X
+  this.type = type;
+    スーパークラスのコンストラクタ呼び出しコードがない為誤り
+    スーパークラスのコンストラクタ呼び出し子どがないことから、暗黙でsuper()の
+    コードが追加されることになる
+    しかし、ClassA クラスには引数を持たないコンストラクタがない為コンパイルエラーになる
+
+this.type = type; // X
+  ClassA.msg = msg;
+    ClassA.meg とあり、これは static 変数へアクセスするときの記述なのでコンパイルエラー
+
+ */
+
+// 【４６】
+class A {
+  int func(int x, int y) {
+    return x / y;
+  }
+}
+class B {
+  int func(int x, int y) {
+    return(int)(Math.Pl * x * y);  // 3.14の円周率を表す
+  }
+}
+class Test {
+  public static void main(String[] args) {
+    A a = new A();
+    System.out.print(a.func(10, 2) + "");
+    B b = new B();
+    System.out.print(b.func(10, 10));
+  }
+}
+
+/*
+コンパイル、実行した結果として正しいもの
+System.out.print(a.func(10, 2) + "");により
+  int func(int x, int y) {
+    return x / y;
+  }
+が呼び出されることにより出力結果：5
+また、return(int)(Math.Pl * x * y); では、Java ライブラリで提供されるMathクラスの
+Pl定数を使用している。Math.Pl定数は円周率を表す
+System.out.print(b.func(10, 10));により、
+  int func(int x, int y) {
+    return(int)(Math.Pl * x * y);  // 3.14の円周率を表す
+  }
+3.14 * 10 * 10の演算が行われる。結果は314.1592653589793となるが、int 型にキャスト
+しているため実行結果：314
+ */
+
+// 【４８】
+public abstract class Foo {
+  public Foo(String str) {
+    methodA(str);
+    methodB();
+  }
+  public void methodA(String str) {
+    System.out.orint(str + "");
+  }
+  public static void main(String[] args) {
+    System.out.print()
+  }
+}
+
+// 【４９】
+/*
+サブクラス側でスーパークラス側のメソッドを実装すること
+ポリモフィズム
+
+問題文はオーバーライドを意味している
+オーバーライドによりポリモフィズムが実現できるため
+ */
+
+// 【５０】
+/*
+インタフェースの説明として正しいもの
+インタフェースは複数のインタフェースを継承(extends)できる
+
+インタフェース内で変数を宣言すると、暗黙的に public static final 修飾子が付与する
+インタフェースを実行(implements)できるのはクラス
+インタフェースは複数のインタフェースを継承することが可能である
+注意点として、具象クラスおよび抽象メソッドが継承(extends)できるクラスの数は1つだけ
+インタフェースでは、抽象メソッドを記述せず定数のみ宣言することも可能(Mylnter.java)
+ */
+
+// 【５２】
+interface X {}
+
+interface Y {}
+
+class Z {}
+
+/*
+Foo クラスの定義として正しいもの
+・ public class Foo extends Z implements X, Y {}  // 〇
+・ public class Foo implements Z extends X, Y {}  // X
+・ public class Foo extends X, Y implements Z {}  // X
+・ public class Foo implements X, Y extends Z {}  // X
+
+クラスを定義する際、複数のインタフェースを実装(implements)することは可能
+また、implements と extends を併用も可能であるが、extends を書く必要がある
+*/
+
+// 【５４】
+class Bar {
+  void func() {
+    System.out.println("Bar:func()");
+  }
+}
+class Test extends Bar {
+  void func() {
+    System.out.println("Test:func()");
+  }
+  public static void main(String[] args) {
+    Bar obj = new Bar();
+    Test tObj = (Test)obj;
+    tObj.func();
+  }
+}
+
+/*
+Bar クラス、Test クラスの各クラスでは文法として誤りはない。コンパイルは成功する
+ポイントとして、Test tObj = (Test)obj;にある obj 変数は、Bar 型であり
+tObj 変数は Test 型。これらのクラスは継承関係があるため、コンパイルが成功する
+しかし、obj 変数が参照しているのは Bar のオブジェクトであり、Test tObj = (Test)obj;で
+異なる型にキャストしているため、実行時エラーになる
+もし、Bar obj = new Bar();が以下のように Test クラスをインスタンス化していれば、
+コンパイル、実行ともに成功し、実行結果はTest:func()になる
+Bar obj = new test();
+ */
+
+// 【５６】
+class Automobile {
+  public void drive() { System.out.print("go forward"); }
+}
+class Ferrari extends Automobile {
+  public void drive() { System.out.print("go fast"); }
+}
+public class Test {
+  public static void main(String[] args) {
+    Automobile[] autos = { new Automobile(), new Ferrari() };
+    for(int x = 0; x < autos.length; x++)
+    autos[x].drive();
+  }
+}
+
+/*
+コンパイル、実行した結果
+Ferrari クラスは Automobile クラスを継承し、drive() メソッドをオーバーライドしている
+したがって、Automobile[] autos = { new Automobile(), new Ferrari() };のように、
+Automobile 型で宣言した配列で2つのオブジェクトを扱うことは可能であり、
+autos[x].drive(); で drive() メソッドを呼び出すと、各クラスで実装した処理が実行される
+実行結果： go forward go fas
+
+ */
+
+// 【６０】
+package pack;
+class Test {
+  int i = 100;
+}
+/*
+i 変数の値を直接変更できるのは？
+・ Testクラスを継承したすべてのサブクラス // X
+      継承関係はアクセス修飾子に影響を与えない
+
+・ packパッケージ内に含まれるすべてのクラス // 〇
+      default アクセス修飾子は同じパッケージ内のクラスからのみアクセス可能
+
+・ このTestクラスのみ   // X
+      他のクラスからは i 変数は見えない
+
+・ すべてのクラス // X
+      default アクセス修飾子は同じパッケージ内でのみ有効である
+
+・ どのクラスからも直接変更はできない // X
+      i 変数は同じパッケージ内であればアクセス可能である
+
+アクセス修飾子を指定していない変数は、そのクラス内のメンバまたは同じパッケージ内に
+含まれるクラスから直接変更することができる
+なお、Test クラスを継承したサブクラスが、Test クラスと異なるパッケージに属する
+
+Javaにおいて、変数、メソッド、クラスなどのアクセス修飾子を定義するには、public、private、protected
+などの修飾子をキーワードとして記述する
+
+しかし、何も修飾子が記述されていない場合、そのメンバは default アクセス修飾子を持つことになる
+
+default アクセス修飾子は、同じパッケージ内のクラスからのみアクセス可能であることを意味する
+Test クラスと同じ、pack パッケージに属するクラスであれば、i 変数の値を直接参照したり変更することができる
+
+例外：サブクラスからのアクセス
+継承関係にあるサブクラスは、たとえ別のパッケージに属していても、protected アクセス修飾子を持つメンバにアクセス可能
+しかし、i 変数は default アクセス修飾子であるため、継承関係だけではアクセスできない
+ */
