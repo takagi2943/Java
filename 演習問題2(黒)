@@ -184,6 +184,24 @@ public class Main {
     System.out.print(total);
   }
 }
+/*
+ローカル変数のスコープに関する問題
+変数のスコープとは、その変数が利用できる範囲の事
+変数のスコープは、その変数を宣言した箇所以降で、かつ宣言が含まれるブロック内のみ
+変数totalにアクセスし、保持している値をコンソールに出力しようとしているが、totalの
+スコープ外なのでコンパイルエラーになる
+例）修正したMainクラス
+public class Main {
+  public static void main (String[] args) {
+    int a = 3;
+    int total = 0;  // 変数total1nの宣言をforブロックの外側へ移動
+    for(int i = 0; i < 3; i++) {
+      total += a;
+    }
+    System.out.print(total);
+  }
+}
+ */
 
 // 【１７】
 /*
