@@ -1,0 +1,133 @@
+// 【２】
+public class Main {
+  public static void main(String[] args) {
+    System.out.println(2 * 3.0);
+  }
+}
+
+/*
+浮動小数点を含む演算に関する問題
+２つのオペランドの型が異なる場合、制度が低い数値の型を、精度の高い数値の型に合わせてから
+演算される
+int型の数値はdouble型に型変換されてから演算される
+System.out.println(2 * 3.0);のコードでは、乗算演算子「＊」を使って2と3.0の乗算結果を表示
+している。intの型2が、double型の数値3.0の制度に和せて、2.0に変換されて計算されるため、演算結果は
+6.0となる
+int型とdouble型の2.0は、プログラム言っては全く異なる値
+2と2.0を2進数で表すとよくわかる。コンピュータは2進数で値を扱うことをよく覚えておく！
+
+なお、6が表示されるようにするには、「System.out.println(2 * (int)3.0);」
+または、「System.out.println((int)(2 * 3.0));」としなければならない
+ */
+
+// 【５】
+public class Main {
+  public static void main(String[] args) {
+    int i = 1;
+    i--;
+    System.out.println(i);
+  }
+}
+
+/*
+デクリメント演算子に関する問題
+デクリメント演算子「--」は、変数の値から1を減算する
+また、インクリメント演算子「++」は、変数の値に1を加算する
+設問のコードでは、i--;（デクリメント演算子）をつかい、変数の値を1減算している
+int i = 1;で変数は1で初期化されているため、デクリメントの演算結果では変数の値は
+0になる
+ */
+
+// 【８】
+public class Main {
+  public static void main(String[] args) {
+    System.out.println((7 + 2) * 2 / (2 - 6));
+  }
+}
+
+/*
+演算子の優先順位に関する問題
+カッコ「()」で囲まれた式の演算が優先されることに注意
+設問のコード「(7 + 2) * 2 / (2 -6)」は、カッコで囲まれた加算「7 + 2」が乗算よりも
+優先して処理される。続いて、「18 / (2 - 6)」は除算よりもカッコで囲まれた減算
+「2 - 6」が優先され、「18 / -4」が処理される
+整数値と整数値の演算のため、結果は「-4.5」ではなく、整数値の「-4」になる
+ */
+
+// 【９】
+public class Main {
+  public static void main(String[] args) {
+    System.out.println(5 + 10 + "5");
+  }
+}
+/*
+演算処理の順位に関する問題
+演算子の優先順位が同じ場合、左側から右側へ順に演算される
+
+設問の「System.out.println(5 + 10 + "5");」コードでは、＋演算子による演算を行い、
+コンソールに表示している。まず、左側の式「5 + 10」が処理されて結果は15になる
+次に、「15+"5"」が処理される
+この時、＋演算子は数値の15と文字列の"5"の文字列連結演算子として働くため、
+結果は115になる
+ */
+
+// 【１２】
+public class Main {
+  public static void main(String[] args) {
+    if(false)     // 条件式にfalseが設定されている
+      System.out.print("A");  // {}がない為、処理されずにifブロックを抜ける
+      System.out.print("B");
+      System.out.print("C");
+  }
+}
+/*
+if文の処理フローに関する問題
+ifブロックを表す中カッコ「{}」を省略すると、条件式の結果がtrueの場合に次の1文だけが
+実行されることに注意！！
+ifブロックを抜けたことにより、ifブロックの外側の処理が動き「BC」と表示される
+ */
+
+// 【１７】
+public class Main {
+  public static void main(String[] args) {
+    int a = 0;
+    int b = 0;
+    if(++a > 0 || ++b > 0) {
+      System.out.print("a=" + a);
+      System.out.print(",b=" + b);
+    }
+  }
+}
+/*
+論理演算子に関する問題
+演算子の左オペランドの結果により、右オペランドを評価しない演算子の事を
+ショートサーキット演算子（短絡演算子）という
+論理積「&&」では、左オペランドの結果がfalseの場合は、右オペランドがtrue、false
+いずれでも条件式の結果はfalseになるため、右オペランドは評価されない
+論理和「||」では、左オペランドの結果がtrueの場合は、右オペランドは評価されない
+ */
+
+// 【１９】
+public class Main {
+  public static void main(String[] args) {
+    double b = 1.5;
+    switch (b) {  // double型の変数bを式に記述している => コンパイルエラー
+      case 1.0:
+        System.out.print("A");
+        break;
+      case 1.5:
+        System.out.print("B");
+        break;
+      case 2.0:
+        System.out.print("C");
+        break;
+    }
+  }
+}
+/*
+switch文の式に関する問題
+switch文の式は、char,byte,short,int,Character,Bytem,Short,lnteger,String,列挙型を
+戻す式でなければならない
+それ以外の場合は、コンパイルエラーが発生する
+設問のコードはdouble型の1.5で処理をしようとしているため式の条件が成立しない為コンパイルエラーになる
+ */
