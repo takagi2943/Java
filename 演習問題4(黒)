@@ -1,0 +1,174 @@
+// 【６】
+public class Main {
+  public static void main(String[] args) {
+    for(int i = 0; ; i++) {   // 条件式が省略されている 無限ループ
+      System.out.println("LOOP");
+    }
+  }
+}
+/*
+for文の構文に関する問題
+条件式の結果は、boolean型またはBoolean型で戻さなくてはならない
+条件式を省略すると、ループは無限に継続することに注意すること！
+設問のコードfor(int i = 0; ; i++) のfor文では、条件式が記述されていない
+このためSystem.out.println("LOOP");が実行され「LOOP」と無限に表示される
+ */
+
+// 【７】
+public class Main {
+  public static void main(String[] args) {
+    for (int i = 0; i < 3; i++) {   // 後置インクリメント
+      System.out.print(i + "");   // 0 1 2
+    }
+  }
+}
+
+/*
+for文の処理の流れに関する問題
+設問のコードでは、まずfor (int i = 0; i < 3; i++)から始まるfor文の初期化式で、
+変数iを0で初期化している。次に「変数iが3よりも小さい間」という条件式がtrueを戻した場合
+反復式では「変数iをインクリメントする」という処理が記述されている
+このため、コンソールへの表示は0から始まり、1つずつ値が加算され、1,2と順に表示される
+ */
+
+// 【８】
+public class Main {
+  public static void main(String[] args) {
+    for (int i = 0; i <= 6; i += 2) {
+      System.out.println("LOOP");
+    }
+  }
+}
+
+/*
+for文の処理の流れに関する問題
+設問のコードでは、for (int i = 0; i <= 6; i += 2)のfor文の初期化式で、変数iを0で初期化
+している。続いて、条件式の「変数iが6以下」がtrueの場合はループを継続する
+反復式では、複合代入演算「i += 2」つまり、「i = i + 2」(変数iに2を加算し、代入する)と記述あり
+これにより、0から始まった変数iの値は2,4,6と順に大きくなり、forブロック内の処理は4回実行される
+ */
+
+// 【１０】
+public class Main {
+  public static void main(String[] args) {
+    for (int i = 0; i < 5; i++) {
+      if(i < 3) {
+        continue;
+      }
+      System.out.println("LOOP");
+    }
+  }
+}
+/*
+ループ処理を制御するcontinueに関する問題
+for文やwhile文のループ処理のブロック内でcontinue文が実行されると、
+以降のコードは処理されず、for文の場合は反復式に、while文の場合は条件式に制御が移る
+設問のコードfor (int i = 0; i < 5; i++)のfor文では、変数iの値は0,1,2,3,4と順に大きくなり
+forブロック内の処理が5回実行されるように、初期化式、条件式、反復式が記述されている
+しかし、if(i < 3)のif文では、「変数iが3よりも小さい場合はcontinueを実行する」と
+記述されているため、iの値が3よりも小さい3回目までのループではSystem.out.println("LOOP");は
+実行されず、変数iをインクリメントし続ける
+変数iの値が3以上となる残りの2回のループではSystem.out.println("LOOP");を実行し、「LOOP」と
+表示する
+ */
+
+// 【１４】
+public class Main {
+  public static void main(String[] args) {
+    int i = 0;
+    do (i < 3) {  // 条件式がdoの後ろに記述されているためコンパイルエラーになる
+      System.out.print(i + "")
+      i++;
+    }while;
+  }
+}
+
+/*
+do-while文の構文に関する問題
+
+do-while文の構文は以下の通り
+do {
+  // 処理
+}while(条件式);
+
+do-while文の特徴は、ループの条件式が繰り返し処理の後に判定される点
+そのため、必ず1回はdoブロック内の処理が実行される
+条件式は、結果をboolean型またはBoolean型で返さなくてはいけない
+条件式の結果がtrueの場合はループを継続し、falseの場合はループから抜ける
+
+例）
+do {
+  System.out.print(i + "");
+  i++;
+}while(i < 3);
+例）
+実行結果：0 1 2
+ */
+
+// 【１５】
+public class Main {
+  public static void main(String[] args) {
+    int i = 0;
+    do {
+      System.out.print("LOOP");
+      i++;
+    }while (i > 3);   // iが3よりも大きい間という条件式はfalse
+  }
+}
+/*
+do-while文の処理の流れに関する問題
+設問のコードint i = 0;で、変数iを0で初期化している
+次にdo-while文を開始し、「LOOP」を表示してから、変数iをインクリメントして
+条件式を実行する
+
+「iが3よりも大きい間」という条件式の結果がfalseのため、これ以上ループを繰り返すことなく、do-while文を
+終了する
+ */
+
+// 【１８】
+public class Main {
+  public static void main(String[] args) { 
+    for (int i = 0; i < 2; i++) {
+      for (int j = 0; j < 2; j += i) {  // j = j + i => j = 0 + 0 無限ループ
+        System.out.println("LOOP");
+      }
+    }
+  }
+}
+
+/*
+ネストしたループに関する問題
+設問のコードでは、外側のカウンタ変数iを内側のforの反復式に利用している
+カウンタ変数を単にインクリメントする反復式のループと比較すると、カウンタ変数の
+保持する値が分かりにくくなるという特徴がある。ここでは、反復式の結果と継続条件から
+ループが何回繰り返されるかを判断する
+
+内側のループの反復式「j += i」は、算術演算で記述すると「j = j + i」と同じ意味
+変数iも変数jも初期化値は0のため、「j = 0 + 0」という式になる
+これでは、変数jの値が0より増えることはない
+そのため、「j < 2」という条件に合致し続けることになり、「LOOP」と無限に表示される
+
+ */
+// 【２０】
+public class Main {
+  public static void main(String[] args) {
+    int j = 0;
+    for (int i = 0; i < 2; i++) {
+      while(j <= i) {
+        System.out.println("LOOP");
+        j++;
+      }
+    }
+  }
+}
+
+/*
+ネストしたループに関する問題
+
+外側のfor文のカウンタ変数iを、内側のwhile文の条件式に利用しているところがポイント
+変数iの値より、内側のループの回数が変化することに注意して解いていく
+また、while文の条件式に利用している変数jはループが始まる前に初期化されており、
+その後、初期化されていない(ゼロに戻ることはない)点にも注意する
+
+
+ */
