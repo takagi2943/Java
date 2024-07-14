@@ -1,0 +1,192 @@
+// 【３】
+public class SuperClass {
+  private int num;
+  public void setNum(int num) {
+    this.num = num;
+  }
+}
+
+public class SubClass extends SuperClass {
+  private int num;
+  public int getNum() {
+    this.num = num;
+  }
+}
+
+public class SubClass extends SuperClass {
+  private int num;
+  public int getNum() {
+    return this.num;
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    SubClass sub = new SubClass();
+    sub.setNum(10);
+    System.out.println(sub.getNum());
+  }
+}
+/*
+・ SubClassの2行目でコンパイルエラーが発生する
+・ Mainクラスの4行目の実行中に例外がスローされる
+・ 0が表示される
+・ 10が表示される
+ */
+
+// 【５】
+public class A {
+  public A() {
+    System.out.println("A");
+  }
+}
+
+public class B extends A {
+  public B() {
+    System.out.println("B");
+  }
+}
+
+pubic class Main {
+  public static void main(String[] args) {
+    B b = new B();
+  }
+}
+/*
+・ 「A」と表示される
+・ 「A」と表示される
+・ 「A」「B」と表示される
+・ 「B」「A」と表示される
+ */
+
+// 【６】
+public class SuperClass {
+  public SuperClass(String val) {
+    System.out.println(val);
+  }
+}
+
+public class SubClass extends SuperClass {
+  public void test() {
+    System.out.println("test");
+  }
+}
+
+public class Sample {
+  public static void main(String[] args) {
+    SubClass sub = new SubClass();
+    sub.test();
+  }
+}
+/*
+・ コンパイルエラーが発生する
+・ 実行時に例外がスローされる
+・ 「nulltest」と表示される
+・ 「test」と表示される
+ */
+
+// 【７】
+public class SuperClass {
+  public SuperClass() {
+    System.out.println("A");
+  }
+  public SuperClass(String val) {
+    System.out.println(val);
+  }
+}
+
+public class SubClass extends SuperClass {
+  public Subclass extends Superclass() {
+    // insert code here
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    new SubClass();
+  }
+}
+/*
+実行結果
+A
+B
+
+
+・ SubClass("B");
+・ this("B");
+・ super("B");
+・ SuperClass("B");
+ */
+
+// 【９】
+/*
+サブクラスでスーパークラスのメソッドを再定義することを何と呼ぶ？正しいものを1つ選択
+・ カプセル化
+・ ポリモーフィズム
+・ オーバーロード
+・ オーバーライド
+*/
+
+// 【１３】
+/*
+インタフェースに定義するフィールドの修飾子として正しいもの3つ選択
+・ protected
+・ static
+・ final
+・ abstract
+・ public
+・ native
+・ synchronized
+ */
+
+// 【１４】
+/*
+インタフェースに定義するメソッドの修飾子として、正しもの2つ選択
+・ protected
+・ final
+・ abstract
+・ public
+・ native
+・ synchronized
+ */
+
+// 【１５】
+/*
+インタフェースの特徴として、正しいもの3つ選択
+・ クラスは1つだけインタフェースを実現できる
+・ インターフェースは、ほかのインタフェースを継承できる
+・ インターフェースは、単一継承のみ可能である
+・ クラスはインターフェースを多重実現できる
+・ インターフェースは、抽象メソッドが定義できる
+・ インターフェースは、具象メソッドが定義できる
+ */
+
+// 【１６】
+/*
+抽象クラスに関する説明として、正しいものを2つ選択
+・ 全てのメソッドは実装済みでなければならない
+・ 抽象メソッドを持つことができる
+・ 実現しているインタフェースのメソッドを実装する必要はない
+・ インスタンスを生成できる
+・ 抽象メソッドは、暗黙的にabstractで修飾される
+ */
+
+// 【１８】
+/*
+パッケージに関する説明として、正しいものを3つ選択
+・ 名前空間を提供する
+・ パッケージ名にはドメイン名を逆にしたものを使用しなければならない
+・ アクセス制御を提供する
+・ クラスの分類を可能にする
+・ パッケージ宣言はソースファイルの1行目に記述する
+ */
+
+// 【１９】
+/*
+インポート宣言に関する説明として、正しいものを2つ選択
+・ java.langパッケージに所属するクラスは、インポート宣言を省略できる
+・ 同じパッケージに所属するクラスは、インポート宣言を抄訳できる
+・ 異なるパッケージに所属するクラスを利用する場合には、必ずインポート宣言をしなければならない
+・ インポート宣言では、利用したいクラスが所属するパッケージ名までを指定する
+・ 
+ */
