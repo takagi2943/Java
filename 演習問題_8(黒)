@@ -1,0 +1,824 @@
+// 【４】
+/*
+ある企業は、GUIベースのアプリケーション開発を希望しており、将来的な拡張として、Webベースのアプリケーションへの移行を予定している。
+このアプリケーションを作成するには、どのJavaテクノロジを使用するがよいか。正しいものを１つ選択
+・ Java SE    // 〇
+・ Java EE
+・ Java ME
+・ Java DB
+
+Java SE =>  GUIを実装するAWTやSwing、JavaFXといったライブラリが含まれる
+            GUIベースのアプリケーション開発に適している
+Java EE =>  Webベースのアプリケーションを開発する機能を提供している
+Java ME =>  携帯電話やPDA,工業用ロボットをはじめとするハードウェア向けのアプリケーションを開発するための機能を提供している
+Java DB =>  JDKに付属する簡易データベース管理ソフトウェア
+ */
+
+// 【７】
+/*
+アクセス修飾子privateで修飾できる要素として、正しいものを3つ選択
+・ クラスのコンストラクタ  // 〇
+・ クラスのフィールド  // 〇
+・ クラスの抽象メソッド
+・ クラスの具象メソッド  // 〇
+・ インタフェースの抽象メソッド
+・ クラス
+
+アクセス修飾子privateに関する問題
+抽象メソッドは、クラスを継承したサブクラスやインタフェースを実現したクラスでの実装を強制するもの
+そのため、同じクラス内でしかアクセスできないことを意味するprivateでは修飾できない
+クラスの抽象メソッド、インタフェースの抽象メソッドは誤り
+
+フィールドとメソッドに指定するアクセス修飾子の制限はない。デフォルトである「アクセス修飾子なし」も含め、
+4つの修飾子(private、デフォルト、protected、public)全てを使うことができる
+コンストラクタもメソッドの一部であるため、メソッドと同じように4種類のアクセス修飾子を使える
+
+具象メソッドは実装を持たない「抽象メソッド」の対義語で、実装を持つ通常のメソッドの事
+4つの修飾子すべてを使うことができる
+ */
+
+// 【８】
+// 実行結果が「refresh L」となるようにしたい6行目に挿入するコードとして、正しいものを選択
+public class Photo {
+  private String size;
+  private String title;
+
+  Photo() {
+    // insert code here
+  }
+  Photo(String title) {
+    this.title = title;
+  }
+  void printInfo() {
+    System.out.println(title + " " + size);
+  }
+
+  public static void main(String[] args) {
+    Photo p = new Photo();
+    p.printInfo();
+  }
+}
+
+/*
+・ this.size = "L";   // this()のコンストラクタブロックが先頭にない
+   this("refresh");
+
+・ Photo("refresh");  // オーバーライドしたコンストラクタを呼び出すには、コンストラクタ名ではなくthis()を利用
+   this.size = "L";
+
+・ this("refresh");  // 〇
+   this.size = "L";
+
+・ this.size = "L";  // オーバーライドしたコンストラクタを呼び出すには、コンストラクタ名ではなくthis()を利用
+   Photo("refresh");
+
+・ this.Photo("refresh")  // thisの後ろに記述できるのは、フィールド、メソッドのみ。コンストラクタは記述できない
+   this.size = "L";
+
+
+this()の使い方に関する問題
+オーバーライドしたコンストラクタを呼び出すには、this()を使用する
+this()は、コンストラクタブロックの先頭行でのみ使用できる点に注意する
+
+*/
+
+// 【９】
+/*
+クラスの宣言として有効なものを2つ選択
+・ public class Test extends java.lang.* {}
+・ public class Test extends java.lang.Object {}  // 〇
+・ final class Test {} // 〇
+・ public class Test {} // 〇
+・ public class Test implements Object {}
+
+クラス宣言の方法に関する問題
+クラスの宣言の際には、クラス名に利用できる文字のほかに、exteendsやimplementsキーワードの後ろに記述するスーパークラスや
+インタフェースの指定方法にも注意する
+
+public class Test extends java.lang.* {} 
+完全修飾クラス名のクラス名の部分を「＊」で表記している。これは、利用するクラスを1つに特定せず、
+複数クラスを利用するということを表している。この表記は、インポート宣言では利用できるが、extendsの場合は
+スーパークラスを1つに特定して記述する必要がある
+
+public class Test extends java.lang.Object {}
+完全修飾クラス名で、java.lang.Objectクラスをスーパークラスとして指定している
+このように、extendsの後ろに完全修飾クラス名を記述する方法は問題ない
+また、Objectクラスはすべてのクラスのスーパークラスである為、記述しなくても暗黙的にObjectクラスのサブクラスとして定義される
+
+final class Test {}
+finalキーワードはクラス宣言に記述することができる
+なお、finalキーワードを付与したクラスを継承することはできない
+
+public class Test {}
+クラスの宣言の文法にのっとっている
+
+public class Test implements Object {}
+Objectは標準APIに含まれるクラスであり、インタフェースでない為implemensできない
+ */
+
+// 【１１】
+// プログラムの6行目に挿入するコードとして、正しいものは
+public class Sample {
+  private String name;
+  private int price;
+  public String TMP = "sample";
+  public Sample() {
+    // insert code here
+  }
+  public Sample(String name) {
+    this.name = name;
+  }
+  public static void main(String[] args) {
+    Sample s = new Sample();
+    s.print();
+  }
+}
+/*
+・ this.price = 1oo;
+   this("sample");
+
+・ this("sample");  // 〇
+   this.price = 100;
+
+・ thie(TMP);
+   this.price = 100;
+
+・ this.price = 100;
+   this(TMP);
+
+・ Sample("sample");
+   this.price = 100;
+
+コンストラクタ内で、別のコンストラクタを呼び出す方法に関する問題
+コンストラクタは普通のメソッドと同様に、オーバーロードして複数定義できる
+
+オーバーロードした別のコンストラクタを呼び出すには、this()を使う
+この時、必ずコンストラクタブロックの先頭行に記述しなければならない
+これは、スーパークラスのコンストラクタがサブクラスのコンストラクタよりも先に処理されることと関係する
+コンパイル時、コンストラクタには、スーパークラスのコンストラクタを呼び出すコード「super();」がブロックの先頭行に
+暗黙的に記述される
+ */
+
+// 【１５】
+public class Main {
+  public static void main(String[] args) {
+    int x = 6;
+    int y = x++;   // y => 6,  x => 7
+    int z = ++y;  // y => 7, Z => 7
+    System.out.println(x + " " + y + " " + z);  // 777と表示される
+  }
+}
+/*
+・ 「667」と表示される
+・ 「677」と表示される
+・ 「666」と表示される
+・ 「777」と表示される  // 〇
+・ コンパイルエラーが発生する
+
+インクリメント演算の前置、後置に関する問題
+後置インクリメントは、オペランドの値のコピーを戻してから、オペランドに1を加算する
+ */
+
+// 【１６】
+// インタフェースのコンパイルを成功させるには、どのコードを2行目に挿入すればよいか2つ選択
+public interface Sample {
+  // insert code here
+}
+/*
+・ public void setVal(String val);  // 〇
+・ private void setVal(String val);
+・ String val;
+・ void setVal(String val);  // 〇
+・ public static void setVal(String val);
+
+インタフェースの定義に関する問題
+インタフェースは、情報隠蔽を実現するために分けた公開・非公開のうち、公開する部分を定義するために使う
+その為、インタフェースにはpublic以外のフィールドやメソッドは定義できない
+また、インタフェースに定義できるフィールドは定数だけ
+そのため、初期値を設定していないフィールドの宣言はコンパイルエラーとなる
+
+インタフェースに定義するメソッドは、すべてpublic abstractで暗黙的に修飾される抽象メソッド
+抽象メソッドはstaticで修飾できない
+抽象メソッドは実装を持たず、実装を提供するクラスが別に必要
+一方、staticなメソッドは、インスタンスを作らなくても実行できるメソッド
+その為、staticなメソッドは実装を持たなければならない
+ */
+
+// 【１７】
+public class Bridge {
+  String name;
+
+  public static void main(String[] args) {
+    Bridge b = new Bridge();
+
+    if(b.name == "")
+        b.name = "Brooklyn";
+
+  System.out.println(b.name);
+  }
+}
+/*
+・ 何も表示されない
+・ 「null」と表示される  // 〇
+・ 「Brooklyn」と表示される
+・ コンパイルエラーが発生する
+・ 実行時に例外がスローされる
+ */
+
+// 【１８】
+/*
+xxxというパッケージにアクセスできるMainクラスをxxx.hogeパッケージ内に
+作成するにはどのクラスに宣言すればよいか
+
+・import xxx.*;
+  package xxx.hoge;
+  public class Main {
+    // any code
+  }
+
+・ package xxx.hoge;  // 〇
+   import xxx.*;
+   public class Main {
+    // any code
+   }
+
+・ import xxx;
+   package xxx.hoge;
+   public class Main {
+    // any code
+   }
+
+・ package xxx.hoge;
+   import xxx;
+   public class Main {
+    // any code
+   }
+
+・ package xxx.*;
+   ppublic class Main {
+    // any code
+   }
+
+パッケージ宣言は、そのクラスが所属するパッケージを宣言するもので、ソースファイルの先頭行に記述しなければならない
+インポート宣言では、インポートしたいクラスの完全修飾クラス名を指定するか、そのクラスが所属するパッケージ名と
+ワイルドカード表記でパッケージ内全てをインポートするよう指定する
+*/
+
+// 【２０】
+public class Test {
+  private static int a;
+  private int b;
+
+  public static int countUpA() {
+    return ++a;
+  }
+  public int doMethod() {
+    return countUpA();
+  }
+
+  public static void main(String[] args) {
+    Test test = new Test();
+    System.out.print(test.doMethod());
+    System.out.print(" " + test.countUpA());
+  }
+}
+/*
+・ 「0 1」と表示される
+・ 「1 2」と表示される  // 〇
+・ 9行目でコンパイルエラーが発生する
+・ 15行目でコンパイルエラーが発生する
+・ 実行時に例外がスローされる
+
+staticフィールドの値の保持とstaticメソッドの呼び出しに関する問題
+・ インスタンスメソッドからstaticメソッドの呼び出しはできる
+・ staticメソッドからインスタンスメソッドの呼び出しはできない
+ */
+
+// 【２１】
+/*
+privateメソッドにアクセスできるものを3つ選択
+・ サブクラスのpublicメソッド
+・ 同じクラスのpribateメソッド  // 〇
+・ super()を使用するサブクラスのコンストラクタ
+・ オーバーロードされたメソッド  // 〇
+・ 同じクラスのメソッド内に定義した自インスタンスを参照するthis変数  // 〇
+
+アクセス修飾子を使ったアクセス制限に関する問題
+privateで修飾されたメソッドは、同一クラス外からはアクセスできないことがポイント
+privateは「同一クラスからアクセス可能」であることを表すアクセス修飾子
+たとえ、サブクラスであってもスーパークラスのprivateなメソッドにはアクセスできない
+ */
+
+// 【２２】
+/*
+次の配列の要素をすべて出力するコードとして正しいものを選べ
+int[] array = {1, 2, 3, 4, 5};
+
+
+・ for(int i = 1; i < array.length; i++) {
+    System.out.println(array[i]);
+   }
+変数iを1で初期化し、配列の要素の長さ(5)になるまで、配列の添字にiを用いてコンソールに出力する
+よって、添字1が保持している値2から順に表示される
+
+・ while(int i = 0; i < array.length) {
+    System.out.println(array[i]);
+    i++;
+   }
+
+・ for(int i = 0; i < array.length; i++) {  // 〇
+    System.out.println(array[i]);
+   }
+変数iを0で初期化しているため、添字0の要素が持っている値1から順に表示される
+
+
+・ while(int i = 1; i < array.lenth) {
+    System.out.println(array[i]);
+    ++i;
+   }
+
+配列の添字と要素数に関する問題
+添字は0から始まり、要素数は、配列インスタンスのlengthを参照することに注意して解く
+while文のカッコに記述できるのは条件式のみ
+設問のコードの配列は5つの要素を持っているため、添字は0～4となる
+
+ */
+
+// 【２３】
+/*
+以下の中からポリモーフィズムに関係が深いものを2つ選択
+
+・ インタフェースの継承
+・ インタフェースの実装
+・ メソッドのオーバーロード
+・ メソッドのオーバーライド
+・ アクセス修飾子protectedの利用
+ */
+
+// 【２９】
+/*
+以下の中から、情報隠蔽にかかわりの深いキーワードを3つ選択
+・ ポリモーフィズム     <= インタフェースを継承し、新しいサブインターフェースを定義
+・ カプセル化  // 〇    <= インタフェースは型であり、実装は提供しない。そのクラスのインスタンスをポリモフィズムで扱うことを前提としている
+・ アクセサメソッド     <= メソッドのオーバーロードとは異なるシグニチャを持つ同名のメソッドを複数定義する「多重定義」 
+・ パッケージ  // 〇    <= 継承によるポリモフィズムではサブクラスでメソッドをオーバーライドすることによりスーパークラスにはない「新しい実装」
+・ インタフェース // 〇  <= Javaでは公開部分をインタフェースとして定義し、ポリモーフィズムによって実際に動くインスタンスの方を隠蔽している
+・ インスタンス化       <= オブジェクト指向全判に必要な概念であり、情報漏洩に特化するものではない
+
+ポリモーフィズムの概念に関する問題
+ */
+
+// 【３５】
+public class News {
+  static int id;
+  String name;
+
+  static void printInfo() {   // staticメソッドからインスタンスフィールドnameにアクセスしている
+    System.out.println(id + ":" + name);
+  }
+
+  public static void main(String[] args) {
+    News n = new News();
+    n.printInfo();
+  }
+}
+/*
+・ 何も表示されない
+・ 「0:」と表示される
+・ 「0：null」と表示される
+・ コンパイルエラーが発生する  // 〇
+・ 実行時に例外がスローされる
+
+staticメソッドからアクセスできるフィールドの種類に関する問題
+staticメソッドからインスタンスフィールドへは、アクセスできないので注意
+staticメソッドの特徴は、インスタンスを生成しなくても呼び出せること
+一方、インスタンスフィールドの特徴は、インスタンスごとにフィールドを持っている
+その為、インスタンスを必要としないstaticメソッドから、インスタンスが存在しなければ
+いけないインスタンスフィールドにアクセスすることはできない
+ */
+
+// 【３８】
+public class Employee {
+  public void disp() {
+    System.out.println("Employee");
+  }
+}
+
+public class Manager extends Employee {
+  public void disp() {
+    System.out.println("Manager");
+  }
+  public static void main(String[] args) {
+    Manager m = new Maneger();   // Managerクラスのインスタンス生成
+    Employee e = m;   // Employee型の変数eにManagerインスタンスへの参照を代入している
+    e.disp();    // Employeeで扱ったとしても、実際に動作するのはManagerのインスタンス
+  }
+}
+/*
+・ 「Employee」が表示される
+・ 「Manager」が表示される  // 〇
+・ 「Employee」「Manager」の順に表示される
+・ 「Manager」「Employee」の順に表示される
+・ コンパイルエラーが発生する
+・ 実行時に例外がスローされる
+
+コードにおけるポリモーフィズムの表現に関する問題
+インスタンスを抽象化し、共通の方で扱うことを、オブジェクト指向では「ポリモーフィズム」
+とよぶ
+どのような型でインスタンスを扱ったとしても、動作するのはインスタンス(実装)そのもの
+ポリモーフィズムに関する問題では、変数の型ではなく、どの型のインスタンスを生成したかを確認すること
+ */
+
+// 【４０】
+public class Counter {
+  static int count = 0;
+
+  Counter() {
+    ++count;   // インクリメントされている
+  }
+
+  public static void main(String[] args) {
+    Counter c = new Counter();  // インスタンスを生成  0 => 1
+    c = new Counter();   // インスタンスを生成  1 => 2
+    System.out.println(c.cout);
+  }
+}
+/*
+・ 0が表示される
+・ 1が表示される
+・ 2が表示される  // 〇
+・ コンパイルエラーが発生する
+・ 実行時に例外がスローされる
+
+staticフィールドに関する問題
+staticフィールドは、クラス単位で管理されることに注意
+ */
+
+// 【４１】
+// ItemクラスとBookクラスが定義されている場合、Itemクラスのインスタンスが生成されるコードとして正しいもの2つ選択
+class Item {   }
+class Book extends Item {   }
+/*
+・ Item item = null;
+・ item item;
+・ item item = new Book();
+・ Item item = new Item();  // 〇
+・ new Item();  // 〇
+
+インスタンス生成の記述方法に関する問題
+インスタンス生成は、
+「クラス名 変数名 = new クラス名();」という形式で記述する
+
+new Item();
+インスタンスを生成しているが、その参照を変数に代入していない
+インスタンスへの参照が保持されていない為、インスタンスのメソッドを呼び出すことはできない
+一般的にインスタンスへの参照は変数へ代入し、その後、メソッド呼び出しに利用する
+ */
+
+// 【４２】
+public class SuperClass {
+  private int num = 10;
+  void test() {
+    System.out.println(num);  // 10と表示される
+  }
+}
+
+public class SubClass extends SuperClass {
+  private int num = 20;
+  public static void main(String[] args) {
+    SubClass sub = new SubClass();
+    sub.test();
+  }
+}
+/*
+・ コンパイルエラーが発生する
+・ 実行時に例外がスローされる
+・ 10が表示される  // 〇
+・ 20が表示される
+
+サブクラスに何が引き継がれているかを問う問題
+継承関係にあっても、privateなフィールドやメソッドとコンストラクタは引き継がれない
+ */
+
+// 【４６】
+// プログラムを実行し、配列の要素がすべて出力されるようにしたい4行目に挿入するコードを選択
+public class Main {
+  public static void main(String[] args) {
+    String[] array = {"hoge", "fuga", "piyo"};
+    // insert code here
+      System.out.println(str);
+  }
+}
+/*
+・ for(str : array)  // strのデータ型を指定していない
+・ for(array : str)  // array配列で、strが単一の要素である必要がある
+・ for(String str : array)  // 〇
+・ for(String str : String[] array)  // String[] array統計式ではなく配列の変数名のみが必要
+・ for(String[] array : str)  // arrayが配列で、strが単一の要素であるべき
+
+拡張for文の文法に関する問題
+配列がjava.lang.lterableのサブタイプを戻す必要がある
+ */
+
+// 【４８】
+public class SuperClass {  // testメソッドを持つ親クラス
+  public void test() {
+    System.out.println("super");
+  }
+}
+
+public class SubClass extends SuperClass {  // testメソッドをオーバーライドしている
+  public void test() {
+    System.out.println("sub");
+  }
+}
+
+public class Sample {
+  public static void main(String[] args) {
+    SuperClass s = new SubClass();  // SubClassのインスタンをSuperClass型の変数sに代入
+    s.test();  // ポリモーフィズムの特性により、SubClassのtestメソッドが実行される
+  }
+}
+/*
+・ 「super」と表示される
+・ 「sub」と表示される  // 〇
+・ コンパイルエラーが発生する
+・ 実行時に例外がスローされる
+
+型の互換性に関する問題
+SubClassクラスは、SuperClassクラスを継承しているため、ポリモーフィズムを使えば
+SubClassクラスのインスタンスをSuperClass型で扱うことができる
+ダウンキャスティングと呼ばれている
+ */
+
+// 【５０】
+public class SuperClass {
+  public void print() {
+    System.out.println("super");
+  }
+}
+
+public class SubClass extends SuperClass {
+  public void print() {
+    System.out.println("sub");
+  }
+  public static void main(String[] args) {
+    SuperClass s = new SuperClass();  // 変数ｓにはいているのはSuperClassの型
+    SubClass S2 = (Subclass) s;  // キャストが違うから実行時エラーになる
+    S2.print();
+  }
+}
+/*
+・ 「super」と表示される
+・ 「sub」と表示される
+・ コンパリルエラーが発生する
+・ 実行時に例外がスローされる  // 〇
+
+参照型の型変換に関する問題
+あるクラス型の変数を、実現関係や継承関係にある上位の方に変換することを
+「アップキャスト」とよぶ
+反対に、実現関係や継承関係にある会の方に変換することを「ダウンキャスト」と呼ぶ
+ */
+
+// 【５１】
+// 「sub,super」と表示されるようにしたい、空欄に当てはまるコードを選択
+public class SuperClass {
+  String val = "super";
+}
+
+public class SubClass extends SuperClass {
+  String val = "sub";
+  public void test() {
+    System.out.println(val + "," +                );
+  }
+  public static void main(String[] args) {
+    SubClass sub = new SubClass();
+    sub.test();
+  }
+}
+/*
+・ super(val)       // コンストラクタ呼び出いの形式であり、valを指定できない
+・ this.val     // SubClassのvalを指すが、これは、subになる
+・ super.val  // 〇
+・ this(val)      // コンストラクタ呼び出しの形式であり、valを指定できない
+・ super().val   // コンストラクタ呼び出しであり、valにアクセスできない
+・ SuperClass.val    //クラスフィールドへの直接アクセスを示すものであるがJavaではこのようなアクセス方法はない
+
+スーパークラスのインスタンスへのアクセス方法について問う問題
+スーパークラスのフィールドやメソッドにサブクラスからアクセスするには、superを使用する
+「super.メソッド名」や「super.フィールド名」でスーパークラスのインスタンスのメソッドや
+フィールドにアクセスできる
+ */
+
+// 【５２】
+/*
+配列の宣言と配列のインスタンスの生成として有効なものを3つ選択
+・ int array = new int[3];
+・ int[] array = new int(3);
+・ int[] array;  // 〇
+   array = new int[3];
+・ int array[3];  // 〇
+・ int[] array = {3, 6, 2};
+・ int[] array = new int()[3];
+・ int[] array = new int[3];  // 〇
+
+配列の宣言に関する問題
+配列型変数の宣言には、データ型の後ろに角カッコ「[]」を記述する
+また、配列インスタンスを生成する際、角カッコ内に要素数を指定することに注意する
+ */
+
+// 【５３】
+public class Main {
+  public static void main(String[] args) {
+    int i = 1;
+    while(i++ < 5) {
+      System.out.println("hoge");
+    }
+    i--;
+  }
+}
+/*
+・ 何も表示されない
+・ 「hoge」が4回表示される  // 〇
+・ 「hoge」が5回表示される
+・ コンパイルエラーが発生する
+・ 実行時に例外がスローされる
+
+while文の処理の流れに関する問題
+条件式の結果がtureである間、whileブロック内の処理が実行される
+ */
+
+// 【５５】
+// プログラムのコンパイルを成功させ、実行結果が「2」になるようにしたい空欄に当てはまるコード選択
+public class Main {
+  public static void main(String[] args) {
+    int a = subtract(5, 3);
+    System.out.println(a);
+  }
+          int subtract(int a, int b) {
+     return a - b; 
+  }
+}
+/*
+・ static  // 〇
+・ final
+・ public
+・ void
+
+staticメソッドからのstataicメソッド呼び出しに関する問題
+stataicメソッドからは、同じクラスのstataicフィールドやstaticメソッドにアクセスできる
+stataicメソッドから、インスタンスフィールドやインスタンスメソッドにはアクセスできないので注意
+ */
+
+// 【５７】
+/*
+インタフェースの定義として、正しいもの
+
+・ public interface App {  // 〇
+    public String id = "A001";
+    void execute(String param);
+  }
+
+・ public interface App {
+    private String id = "A001";
+    public void execute(String param);
+  }
+
+・ public interface App {
+    public String id;
+    abstract void execute(String param);
+  }
+
+・ public interface App {
+    abstract String id = "A001";
+    void execute(String param);
+  }
+
+インタフェースの定義に関する問題
+インタフェースは情報隠蔽の実現のために使う
+情報隠蔽は、ソフトウェアを公開する部分と非公開にする部分に分け、非公開にする部分に
+アクセスできないよう制御すること
+インタフェースは、公開する部分を定義するために使う
+その為、インタフェースに定義するフィールドやメソッドはpublicでなければいけない
+また、publicであると同時に、インタフェースに定義するフィールドは暗黙的にfinal staticで修飾される
+これは、インタフェースを持たず、ふぃーすろの初期化処理ができない為、定数で勝つインスタンスを作らなくても
+持てるstaticでなければいけない
+
+インタフェースに定義するメソッドは暗黙的にpublic abstractで修飾される
+*/ 
+
+// 【５８】
+/*
+コンストラクタに関する説明として、正しいものを2つ選択
+・ サブクラスはスーパークラスのコンストラクタを引き継がない  // 〇
+・ コンストラクタの戻り値型はvoidにすることができる
+・ コンストラクタはprivateで修飾できる  // 〇
+・ コンストラクタは、クラス内のすべてのフィールドを初期化しなければならない
+
+
+
+コンストラクタに関する問題
+サブクラスは、スーパークラスに定義したフィールドやメソッドを引き継ぐ
+正し、サブクラスのインスタンスは、次の2つをスーパークラスから引き継げない
+・ コンストラクタ
+・ privateなフィールドやメソッド
+
+コンストラクタの定義には、3つのルールがある
+・ コンストラクタ名はクラス名と同じである
+・ インスタンス生成時にしか使えない
+・ 戻り値型を記述できない
+
+コンストラクタは、上記のようなルールを持つ以外は通常のメソッドと変わらない
+その為、publicやprotected、デフォルト、privateのいずれかのアクセス修飾子も使える
+
+コンストラクタの目的は、インスタンスの準備
+ほかのインスタンスから使われる前に、事前に準備すべきことがあればコンストラクタで処理する
+コンストラクタで必ずしもすべてのフィールドを初期化する必要はない
+ */
+
+// 【５９】
+// 正常にコンパイルされるようにしたい、Samplelmplクラスの2行目に挿入するコードを選択
+abstract class Sample {   // 抽象メソッド
+  void print() {  // 具体的に実装している
+    System.out.println("sample");
+  }
+  public abstract void test();  // 抽象メソッドとして宣言している
+}
+
+public class SampleImpl extends Sample {
+  // 親クラスを継承するクラスは抽象メソッドを具体的に実装する必要がある
+  // insert code here
+}
+/*
+・ void test() {
+    System.out.println("imple");
+  }
+
+・ public abstract void test() {
+    System.out.println("impl");
+  }
+
+・ public void test() {  // 〇
+    System.out.println("impl");
+  }
+
+・ public void print() {
+    System.out.println("impl");
+  }
+
+・ void print() {
+    System.out.println("impl");
+  }
+
+抽象クラスに定義した抽象メソッドの実装に関する問題
+抽象クラスは、インタフェースと具象クラスの両方の性質を持っている
+具象クラスとの違いは、抽象メソッドを持てるかどうかという点
+抽象メソッドは、インタフェースに定義したメソッドの宣言と同じように、
+その抽象クラスを継承したサブクラスが実装しなければいけない
+
+抽象メソッドを実装するときには、メソッドのオーバーライドと同じルールが適用
+・ メソッドのシグニチャがスーパークラスのものと同じであること
+・ 戻り値の型がスーパークラスのメソッドと同じか、サブクラスであること
+・ メソッドのアクセス制御がスーパークラスと同じか、それよりも緩いこと
+
+ */
+
+// 【６０】
+public class Main {
+  public static void main(String[] args) {
+    String s1 = "abc";
+    String s2 = "abc";
+    String s3 = new String("abc");
+
+    if(s1 == s2) {
+      System.out.print("s1 == s2");
+    }else {
+      System.out.print("s1 != s2");
+    }
+
+    if(s1 == s3) {
+      System.out.print("s1 == s3");
+    }else {
+      System.out.print("s1 != s3");
+    }
+  }
+}
+/*
+・ 「s1 == s2 」「s1 == s3」と表示される
+・ 「s1 != s2 」「s1 == s3」と表示される
+・ 「s1 == s2 」「s1 != s3」と表示される  // 〇
+・ 「s1 != s2 」「s1 != s3」と表示される
+
+==演算子と同一性に関する問題
+Javaではコンスタントプールという仕組みを使い、同じ文字列リテラルによって生成される
+Stringのインスタンスを使いまわしている
+
+これらのコードは次と同じ意味を持つ
+String s1 = "abc";
+String s2 = s1;
+
+String s3 = new String("abc");
+文字列リレラルではなく、newキーワードを使ってStringのインスタンスを生成している
+このように記述した場合は、たとえ同じ文字列であっても、インスタンスへの参照を使いまわすことはない
+よって、変数s3は、変数s1やs2とは異なるインスタンスへの参照を持つ
+ */
